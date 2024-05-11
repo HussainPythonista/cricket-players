@@ -91,7 +91,7 @@ class Players(Calculate):
         teams=self.__number_of_team__()
 
 
-        return self.sorted_data()
+        return self.final_data()
     
     def calculate_team_strength(self):
         team_data=self.assign_players()
@@ -104,15 +104,21 @@ class Players(Calculate):
         return team_strength
 
 player=Players(data,6)
-sorted_data=player.assign_players()
-team=[[],[],[],[],[]]
+player.final_data()
 
+calc=Calculate(data)
 
-while  len(team[-1])<=10:
-    for idx in range(5):
-    
-        team[idx].append(sorted_data["Batting"].pop(0))
-        team[idx].append(sorted_data["Bowling"].pop(0))
-        team[idx].append((sorted_data["Wicket_Keeper"].pop(0)))
-        print(team[0])
-print(len(team[-1]))
+sorted_data=calc.sorted_data()
+
+batting=sorted_data["Batting"]
+bowling=sorted_data["Bowling"]
+wk=sorted_data["Wicket_Keeper"]
+
+sorted_batting=sorted(batting,key=lambda d:d["batting_rating"],reverse=True)
+sorted_bowling=sorted(bowling,key=lambda d:d["bowling_rating"],reverse=True)
+sorted_wk=sorted(wk,key=lambda d:d["wicket_keeper_rating"],reverse=True)
+
+#Assign only wicket Keeper
+
+teams=[[],[],[],[],[]]
+
