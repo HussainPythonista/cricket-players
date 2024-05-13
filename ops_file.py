@@ -34,7 +34,7 @@ class Calculate:
     
     def sorted_data(self):
         '''
-        Function which return the players based on rating by batting,bowling,wiket keeper
+        Function which return the players based on rating by batting,bowling,wicket keeper
         '''
         final_sorted_data={}
         final_sorted_data["Batting"]=sorted(data,key=lambda sort:sort["batting_rating"],reverse=True)
@@ -66,7 +66,13 @@ class Players(Calculate):
         #Inherit Superclass
         super().__init__(dataset)
         self.teams=number_teams
-    
+        self.sorted_data=self.sorted_data()
+
+        self.batting=self.sorted_data["Batting"]
+        self.bowling=self.sorted_data["Bowling"]
+        self.wk=self.sorted_data["Wicket_Keeper"]
+
+        
     def check_can_split(self):
 
         length_data=len(data)
@@ -77,22 +83,53 @@ class Players(Calculate):
             return False
 
     #Calculate the number of teams which I want to create from the dataset
-    def __number_of_team__(self):
-
-        #number of teams
+    def number_of_team(self):
+        
         list_teams=[]
         for _ in range(self.teams):
             list_teams.append([])
 
         #return number of teams with given N
         return list_teams
+        
+    def __pop_values__(self,data_pop):
 
-    def assign_players(self):
-        teams=self.__number_of_team__()
+        global batting,bowling,wk
 
-
-        return self.final_data()
+        #pop data from 
+        for idx,wk in enumerate(self.wk):
+            if wk["name"]==data_pop["name"]:
+                del self.wk[idx]
+                
+        for idx,bowling in enumerate(self.bowling):
+            if bowling["name"]==data_pop["name"]:
+                del self.bowling[idx]
+                
+        for idx,batting in enumerate(self.batting):
+            if batting["name"]==data_pop["name"]:
+                del self.batting[idx]
     
+    def assign_players(self):
+
+        #First assign the wicket keepers
+        teams=self.number_of_team()
+        for idx in range(len(teams)):
+            poped_wicket=self.wk.pop(0)
+            self.__pop_values__(poped_wicket)
+            teams[idx].append(poped_wicket)
+
+        #Assign other players
+        while len(teams[-1])<11:
+            for idx in range(len(teams)):
+            
+                poped_bat=self.batting.pop(0)
+                poped_bow=self.bowling.pop(0)
+                self.__pop_values__(poped_bat)
+                self.__pop_values__(poped_bow)
+                teams[idx].append(poped_bat)
+                teams[idx].append(poped_bow)
+
+        return teams
     def calculate_team_strength(self):
         team_data=self.assign_players()
         team_strength={}
@@ -103,22 +140,26 @@ class Players(Calculate):
             team_strength[f"Team {idx}"]=total_strength
         return team_strength
 
-player=Players(data,6)
-player.final_data()
+# player=Players(data,5)
+# #print(len(player.assign_players()[0]))
 
-calc=Calculate(data)
+# print(player.assign_players()[0])
+# # for  single in player.assign_players()[0]:
+# #     print(single["name"])
 
-sorted_data=calc.sorted_data()
+# calc=Calculate(data)
 
-batting=sorted_data["Batting"]
-bowling=sorted_data["Bowling"]
-wk=sorted_data["Wicket_Keeper"]
+# sorted_data=calc.sorted_data()
 
-sorted_batting=sorted(batting,key=lambda d:d["batting_rating"],reverse=True)
-sorted_bowling=sorted(bowling,key=lambda d:d["bowling_rating"],reverse=True)
-sorted_wk=sorted(wk,key=lambda d:d["wicket_keeper_rating"],reverse=True)
+# batting=sorted_data["Batting"]
+# bowling=sorted_data["Bowling"]
+# wk=sorted_data["Wicket_Keeper"]
 
-#Assign only wicket Keeper
+# sorted_batting=sorted(batting,key=lambda d:d["batting_rating"],reverse=True)
+# sorted_bowling=sorted(bowling,key=lambda d:d["bowling_rating"],reverse=True)
+# sorted_wk=sorted(wk,key=lambda d:d["wicket_keeper_rating"],reverse=True)
 
-teams=[[],[],[],[],[]]
+# #Assign only wicket Keeper
+
+# teams=[[],[],[],[],[]]
 

@@ -9,7 +9,7 @@ players=Players(data,6)
 
 sorted_dataset=players.assign_players()
 
-teams=[[],[],[],[],[]]
+teams=[[],[],[],[],[],[]]
 for _ in range(11):
     for team in range(len(teams)):
         teams[team].append(sorted_dataset.pop(0))
