@@ -113,22 +113,36 @@ class Players(Calculate):
 
         #First assign the wicket keepers
         teams=self.number_of_team()
-        for idx in range(len(teams)):
-            poped_wicket=self.wk.pop(0)
-            self.__pop_values__(poped_wicket)
-            teams[idx].append(poped_wicket)
 
-        #Assign other players
-        while len(teams[-1])<11:
+
+        
+
+        
+        # for idx in range(len(teams)):
+        #     poped_wicket=self.wk.pop(0)
+        #     self.__pop_values__(poped_wicket)
+        #     teams[idx].append(poped_wicket)
+        while len(teams[-1]) < 11:
+            sliced_batsman=self.batting[0:len(teams)*2]
+            sliced_bowler=self.bowling[0:len(teams)*2]
             for idx in range(len(teams)):
-            
-                poped_bat=self.batting.pop(0)
-                poped_bow=self.bowling.pop(0)
+                poped_bat = sliced_batsman.pop(0) 
                 self.__pop_values__(poped_bat)
-                self.__pop_values__(poped_bow)
                 teams[idx].append(poped_bat)
+
+                poped_bat = sliced_batsman.pop(-1)
+                self.__pop_values__(poped_bat)
+                teams[idx].append(poped_bat)  
+                          
+                
+                poped_bow = sliced_bowler.pop(0) 
+                self.__pop_values__(poped_bow)
                 teams[idx].append(poped_bow)
 
+                poped_bow = sliced_bowler.pop(-1)
+                self.__pop_values__(poped_bow)
+                teams[idx].append(poped_bow) 
+        
         return teams
     def calculate_avg(self,json_data):
         rating_avg={}
@@ -142,14 +156,10 @@ class Players(Calculate):
             total+=single_player["bowling_rating"]
         rating_avg["bowling"]= round(total/11,2)
 
-        total=0
-        for single_player in json_data:
-            total+=single_player["wicket_keeper_rating"]
-        rating_avg["wicket_keeper"]=round(total/11,2)
 
         return  rating_avg
     
-    
+
     def calculate_team_strength(self):
         team_data=self.assign_players()
         team_strength={}
