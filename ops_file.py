@@ -130,6 +130,26 @@ class Players(Calculate):
                 teams[idx].append(poped_bow)
 
         return teams
+    def calculate_avg(self,json_data):
+        rating_avg={}
+        total=0
+        for single_player in json_data:
+            total+=single_player["batting_rating"]
+        rating_avg["batting"]= round(total/11,2)
+
+        total=0
+        for single_player in json_data:
+            total+=single_player["bowling_rating"]
+        rating_avg["bowling"]= round(total/11,2)
+
+        total=0
+        for single_player in json_data:
+            total+=single_player["wicket_keeper_rating"]
+        rating_avg["wicket_keeper"]=round(total/11,2)
+
+        return  rating_avg
+    
+    
     def calculate_team_strength(self):
         team_data=self.assign_players()
         team_strength={}

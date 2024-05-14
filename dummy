@@ -1,0 +1,43 @@
+# @app.route("/generate")
+# def generate_player():
+#     get_json=request.get_json()
+#     number_team_requested=get_json["team"]
+
+#     data=db.get_all()
+#     total_players_length=len(data)
+    
+#     max_team=total_players_length//11
+
+#     if max_team==number_team_requested:
+#         players=Players(data,number_team_requested)
+#         return jsonify(players.assign_players())
+    
+#     elif max_team<number_team_requested:
+#         return jsonify(f"You can generate only {max_team} teams add {(number_team_requested*11)-total_players_length} Players, to create {number_team_requested} team")
+   
+#     else:
+#         players=Players(data,number_team_requested)
+#         return jsonify(players.assign_players())
+    
+# @app.route("/generate")
+# def generate_players():
+
+#     """Generates teams of players based on the number of teams requested."""
+#     get_json=request.get_json()
+#     number_team_requested=get_json["team"]
+
+#     data=db.get_all()
+#     total_players_length=len(data)
+    
+#     max_team=total_players_length//11
+
+#     if max_team==number_team_requested:
+#         players=Players(data,number_team_requested)
+#         return jsonify(players.assign_players())
+    
+#     elif max_team<number_team_requested:
+#         return jsonify(f"You can generate only {max_team} teams add {(number_team_requested*11)-total_players_length} Players, to create {number_team_requested} team")
+   
+#     else:
+#         players=Players(data,number_team_requested)
+#         return jsonify(players.assign_players())
