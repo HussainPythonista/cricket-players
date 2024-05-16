@@ -18,10 +18,13 @@ class Calculate:
         self.data=dataset
     
 
-    def calculate_overall(self,single_data):
-        overall_ratting=single_data["batting_rating"]+single_data["bowling_rating"]+single_data["wicket_keeper_rating"]
+    # def calculate_overall(self,single_data):
+    #     overall_ratting=0#single_data["batting_rating"]+single_data["bowling_rating"]+single_data["wicket_keeper_rating"]
 
-        return (overall_ratting)
+    #     for data in single_data:
+    #         overall_ratting+=data[]
+    #     print(single_data)
+    #     #return (overall_ratting/11)
     
     def final_data(self):
         for index,single_data in enumerate(self.data):
@@ -114,14 +117,6 @@ class Players(Calculate):
         #First assign the wicket keepers
         teams=self.number_of_team()
 
-
-        
-
-        
-        # for idx in range(len(teams)):
-        #     poped_wicket=self.wk.pop(0)
-        #     self.__pop_values__(poped_wicket)
-        #     teams[idx].append(poped_wicket)
         while len(teams[-1]) < 11:
             sliced_batsman=self.batting[0:len(teams)*2]
             sliced_bowler=self.bowling[0:len(teams)*2]
@@ -144,6 +139,7 @@ class Players(Calculate):
                 teams[idx].append(poped_bow) 
         
         return teams
+    
     def calculate_avg(self,json_data):
         rating_avg={}
         total=0
@@ -156,40 +152,15 @@ class Players(Calculate):
             total+=single_player["bowling_rating"]
         rating_avg["bowling"]= round(total/11,2)
 
-
+        #print(self.calculate_overall(json_data))
+        rating_avg["Team_overall"]=round(self.calculate_team_strength(json_data)/11,2)
         return  rating_avg
     
 
-    def calculate_team_strength(self):
-        team_data=self.assign_players()
-        team_strength={}
-        for idx in range(len(team_data)):
-            total_strength=0
-            for single_player in range(len(team_data[idx])):
-                total_strength+=(team_data[idx][single_player]["Overall_rating"])
-            team_strength[f"Team {idx}"]=total_strength
-        return team_strength
+    def calculate_team_strength(self,json_data):
+        
+        overall_team_strength=0
+        for single_palyer in json_data:
+            overall_team_strength+=single_palyer["batting_rating"]+single_palyer["bowling_rating"]+single_palyer["wicket_keeper_rating"]
 
-# player=Players(data,5)
-# #print(len(player.assign_players()[0]))
-
-# print(player.assign_players()[0])
-# # for  single in player.assign_players()[0]:
-# #     print(single["name"])
-
-# calc=Calculate(data)
-
-# sorted_data=calc.sorted_data()
-
-# batting=sorted_data["Batting"]
-# bowling=sorted_data["Bowling"]
-# wk=sorted_data["Wicket_Keeper"]
-
-# sorted_batting=sorted(batting,key=lambda d:d["batting_rating"],reverse=True)
-# sorted_bowling=sorted(bowling,key=lambda d:d["bowling_rating"],reverse=True)
-# sorted_wk=sorted(wk,key=lambda d:d["wicket_keeper_rating"],reverse=True)
-
-# #Assign only wicket Keeper
-
-# teams=[[],[],[],[],[]]
-
+        return overall_team_strength

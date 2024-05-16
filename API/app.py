@@ -30,6 +30,7 @@ def generate_players_post():
         battingAvg=0
         for idx, team in enumerate(teams):
             avg=players.calculate_avg(team)
+            
             db.insert_team(f"Team {idx+1}", team,avg)
             
         return jsonify(teams)
