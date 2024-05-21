@@ -1,0 +1,50 @@
+
+<div>
+    <button (click)="add_player()">add</button>
+
+    <!-- <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <label for="name">Name</label>
+        <input id="name" formControlName="name">
+      
+        <label for="age">Age</label>
+        <input id="age" formControlName="age" type="number">
+      
+        <label for="batting_rating">Batting Rating</label>
+        <input id="batting_rating" formControlName="batting_rating" type="number">
+        
+        <label for="bowling_rating">Bowling Rating</label>
+        <input id="bowling_rating" formControlName="bowling_rating" type="number">
+      
+        <button type="submit">Submit</button>
+    </form> -->
+    <div>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Batting Rating</th>
+                <th>Bowling Rating</th>
+                <th>Wicket Keeper Rating</th>
+            </tr>
+            <div>
+
+                <input id="name" formControlName="name" *ngIf="add_player_bool==true">
+            </div>
+            <div>
+                <tr *ngFor="let player of player_list">
+                <td >{{player.name}}</td>
+                <td >{{player.age}}</td>
+                <td >{{player.batting_rating}}</td>
+                <td >{{player.bowling_rating}}</td>
+                <td >{{player.wicket_keeper_rating}}</td>
+                </tr>
+            </div>
+             
+        </table>
+        
+
+    </div>
+    
+</div>
+

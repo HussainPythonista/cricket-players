@@ -1,13 +1,17 @@
 import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LoginService } from '../Services/login.service';
+import { CommonModule } from '@angular/common';
+
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
+  
 })
 export class LoginComponent {
 
@@ -17,21 +21,32 @@ export class LoginComponent {
   username: string = ""
   password: string = '';
 
-  correct:boolean=true
+ 
+  isLoggedIn:any;
 
-  constructor() {
-    console.log('LoginComponent constructor');
+  
+  constructor(private loginService:LoginService) {
+    
   }
 
   ngOnInit() {
-    console.log('LoginComponent initialized');
+    
   }
+  
+  count=0
+  onSubmit() : void {
 
-  onSubmit() {
-
-    if (this.username==this.for_check_username&& this.password==this.password){
-        console.log("sucsess")
+    if (this.username==this.for_check_username && this.password==this.for_check_password){
+      this.loginService.logedin()
+      this.isLoggedIn=this.loginService.login
     }
+    else{
+      this.loginService.logFailed()
+      this.isLoggedIn=this.loginService.login
+    }
+
+    console.log("Log from login",this.isLoggedIn)
+    
   }
 
   
