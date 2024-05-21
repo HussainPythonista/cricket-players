@@ -2,34 +2,62 @@ import { CommonModule } from '@angular/common';
 import { Component,OnInit,Input,ChangeDetectorRef  } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-
+import { PlayerService } from '../Services/player.service';
+import { HttpClientModule } from '@angular/common/http';
+import { Player } from '../../models/player.models';
+import { response } from 'express';
 
 @Component({
   selector: 'app-playerui',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule,ReactiveFormsModule,HttpClientModule],
   templateUrl: './playerui.component.html',
-  styleUrl: './playerui.component.css'
+  styleUrl: './playerui.component.css',
+  providers:[PlayerService]
 })
-export class PlayeruiComponent {
+export class PlayeruiComponent implements OnInit{
   add_player_bool:boolean=false;
   myForm: FormGroup;
 
 
-  player_list=[{"_id":"6643038357795a517d289f50","age":33,"batting_rating":9,"bowling_rating":2,"name":"Batsman-1","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f51","age":31,"batting_rating":8,"bowling_rating":3,"name":"Batsman-2","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f52","age":32,"batting_rating":8,"bowling_rating":2,"name":"Batsman-3","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f53","age":30,"batting_rating":7,"bowling_rating":2,"name":"Batsman-4","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f54","age":29,"batting_rating":8,"bowling_rating":2,"name":"Batsman-5","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f55","age":34,"batting_rating":9,"bowling_rating":3,"name":"Batsman-6","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f56","age":35,"batting_rating":7,"bowling_rating":4,"name":"Batsman-7","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f57","age":28,"batting_rating":8,"bowling_rating":2,"name":"Batsman-8","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f58","age":31,"batting_rating":8,"bowling_rating":3,"name":"Batsman-9","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f59","age":33,"batting_rating":9,"bowling_rating":2,"name":"Batsman-10","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f5a","age":30,"batting_rating":8,"bowling_rating":3,"name":"Batsman-11","wicket_keeper_rating":2},{"_id":"6643038357795a517d289f5b","age":32,"batting_rating":8,"bowling_rating":2,"name":"Batsman-12","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f5c","age":29,"batting_rating":8,"bowling_rating":3,"name":"Batsman-13","wicket_keeper_rating":2},{"_id":"6643038357795a517d289f5d","age":34,"batting_rating":9,"bowling_rating":2,"name":"Batsman-14","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f5e","age":28,"batting_rating":8,"bowling_rating":4,"name":"Batsman-15","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f5f","age":33,"batting_rating":9,"bowling_rating":3,"name":"Batsman-16","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f60","age":30,"batting_rating":7,"bowling_rating":4,"name":"Batsman-17","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f61","age":31,"batting_rating":8,"bowling_rating":3,"name":"Batsman-18","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f62","age":32,"batting_rating":8,"bowling_rating":3,"name":"Batsman-19","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f63","age":35,"batting_rating":9,"bowling_rating":2,"name":"Batsman-20","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f64","age":28,"batting_rating":3,"bowling_rating":9,"name":"Bowler-1","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f65","age":30,"batting_rating":3,"bowling_rating":8,"name":"Bowler-2","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f66","age":27,"batting_rating":2,"bowling_rating":9,"name":"Bowler-3","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f67","age":29,"batting_rating":3,"bowling_rating":8,"name":"Bowler-4","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f68","age":25,"batting_rating":2,"bowling_rating":9,"name":"Bowler-5","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f69","age":26,"batting_rating":2,"bowling_rating":9,"name":"Bowler-6","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f6a","age":32,"batting_rating":4,"bowling_rating":8,"name":"Bowler-7","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f6b","age":31,"batting_rating":5,"bowling_rating":8,"name":"Bowler-8","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f6c","age":30,"batting_rating":3,"bowling_rating":9,"name":"Bowler-9","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f6d","age":28,"batting_rating":3,"bowling_rating":8,"name":"Bowler-10","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f6e","age":29,"batting_rating":3,"bowling_rating":9,"name":"Bowler-11","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f6f","age":34,"batting_rating":5,"bowling_rating":8,"name":"Bowler-12","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f70","age":35,"batting_rating":2,"bowling_rating":9,"name":"Bowler-13","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f71","age":28,"batting_rating":4,"bowling_rating":8,"name":"Bowler-14","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f72","age":27,"batting_rating":3,"bowling_rating":9,"name":"Bowler-15","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f73","age":30,"batting_rating":3,"bowling_rating":8,"name":"Bowler-16","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f74","age":28,"batting_rating":3,"bowling_rating":8,"name":"Bowler-17","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f75","age":31,"batting_rating":4,"bowling_rating":8,"name":"Bowler-18","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f76","age":29,"batting_rating":3,"bowling_rating":9,"name":"Bowler-19","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f77","age":30,"batting_rating":3,"bowling_rating":8,"name":"Bowler-20","wicket_keeper_rating":1},{"_id":"6643038357795a517d289f78","age":30,"batting_rating":8,"bowling_rating":2,"name":"Wicket_Keeper-1","wicket_keeper_rating":9},{"_id":"6643038357795a517d289f79","age":31,"batting_rating":7,"bowling_rating":2,"name":"Wicket_Keeper-2","wicket_keeper_rating":8},{"_id":"6643038357795a517d289f7a","age":29,"batting_rating":8,"bowling_rating":2,"name":"Wicket_Keeper-3","wicket_keeper_rating":9},{"_id":"6643038357795a517d289f7b","age":33,"batting_rating":7,"bowling_rating":1,"name":"Wicket_Keeper-4","wicket_keeper_rating":8},{"_id":"6643038357795a517d289f7c","age":34,"batting_rating":8,"bowling_rating":2,"name":"Wicket_Keeper-5","wicket_keeper_rating":9},{"_id":"6643038357795a517d289f7d","age":28,"batting_rating":7,"bowling_rating":1,"name":"Wicket_Keeper-6","wicket_keeper_rating":8},{"_id":"6643038357795a517d289f7e","age":30,"batting_rating":8,"bowling_rating":2,"name":"Wicket_Keeper-7","wicket_keeper_rating":9},{"_id":"6643038357795a517d289f7f","age":29,"batting_rating":7,"bowling_rating":2,"name":"Wicket_Keeper-8","wicket_keeper_rating":8},{"_id":"6643038357795a517d289f80","age":32,"batting_rating":8,"bowling_rating":2,"name":"Wicket_Keeper-9","wicket_keeper_rating":9},{"_id":"6643038357795a517d289f81","age":33,"batting_rating":7,"bowling_rating":1,"name":"Wicket_Keeper-10","wicket_keeper_rating":8},{"_id":"6643038357795a517d289f82","age":31,"batting_rating":8,"bowling_rating":2,"name":"Wicket_Keeper-11","wicket_keeper_rating":9},{"_id":"6643038357795a517d289f83","age":29,"batting_rating":7,"bowling_rating":2,"name":"Wicket_Keeper-12","wicket_keeper_rating":8},{"_id":"6643038357795a517d289f84","age":30,"batting_rating":8,"bowling_rating":1,"name":"Wicket_Keeper-13","wicket_keeper_rating":9},{"_id":"6643038357795a517d289f85","age":32,"batting_rating":7,"bowling_rating":1,"name":"Wicket_Keeper-14","wicket_keeper_rating":8},{"_id":"6643038357795a517d289f86","age":34,"batting_rating":8,"bowling_rating":2,"name":"Wicket_Keeper-15","wicket_keeper_rating":9},{"_id":"6643038357795a517d289f87","age":31,"batting_rating":7,"bowling_rating":2,"name":"Wicket_Keeper-16","wicket_keeper_rating":8},{"_id":"6643038357795a517d289f88","age":29,"batting_rating":8,"bowling_rating":1,"name":"Wicket_Keeper-17","wicket_keeper_rating":9},{"_id":"6643038357795a517d289f89","age":33,"batting_rating":7,"bowling_rating":2,"name":"Wicket_Keeper-18","wicket_keeper_rating":8},{"_id":"6643038357795a517d289f8a","age":30,"batting_rating":8,"bowling_rating":1,"name":"Wicket_Keeper-19","wicket_keeper_rating":9},{"_id":"6643038357795a517d289f8b","age":34,"batting_rating":7,"bowling_rating":2,"name":"Wicket_Keeper-20","wicket_keeper_rating":8}]
-    add_player(){
-        console.log("clicked")
-        this.add_player_bool=true
+  player_list:Player[]=[]
+  add_player_check(){
+        
+        this.add_player_bool=!this.add_player_bool
+        console.log(this.add_player_bool)
     }
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder,public playerService:PlayerService) {
       this.myForm = this.fb.group({
         name: [''],
         age: [''],
         batting_rating: [''],
-        bowling_rating:['']
+        bowling_rating:[''],
+        wicket_keeper_rating:['']
       });
     }
+    
+
+    get_all_players(){
+      this.playerService.getPlayers().subscribe(
+        (response)=>{
+          this.player_list=response
+        }
+      )
+    }
+    ngOnInit() {
+      this.get_all_players()
+    }
     onSubmit(): void {
-      console.log(this.myForm.value);
+      //this.player_list.unshift(this.myForm.value);
+      this.playerService.add_players(this.myForm.value).subscribe(
+        (response)=>{
+          this.get_all_players()
+          console.log(response)
+        }
+      )
+    }
+    
+    delete_record(id:number){
+      console.log(id,"will be delete")
     }
 }

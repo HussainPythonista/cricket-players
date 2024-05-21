@@ -1,23 +1,51 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    text-align: left; /* Ensure all text is left-aligned */
+    text-align: left;
 }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px; /* Add padding for better readability */
+    padding: 8px;
 }
 
 th {
-    background-color: #f2f2f2; /* Light gray background for header */
+    background-color: #f2f2f2;
     font-weight: bold;
 }
 
 tr:nth-child(even) {
-    background-color: #f9f9f9; /* Zebra stripe effect */
+    background-color: #f9f9f9;
 }
 
 tr:hover {
-    background-color: #f1f1f1; /* Highlight row on hover */
+    background-color: #f1f1f1;
+}
+
+form {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+
+form input {
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+form button:hover {
+    background-color: #45a049;
 }

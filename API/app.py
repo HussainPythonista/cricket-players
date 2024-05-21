@@ -1,13 +1,14 @@
 from flask import Flask,jsonify,request
 from data_file import player_list
 
+from flask_cors import CORS
 from ops_file import Players
 import db
 
 
 
 app=Flask(__name__)
-
+CORS(app)
 
 
 def calculate_avg(team):
@@ -56,7 +57,7 @@ def get_teams():
     teams = db.get_teams()
     return jsonify(teams)
 
-@app.route("/")
+@app.route("/players")
 def team():
     return jsonify(db.get_all())
 
@@ -94,8 +95,17 @@ def delete_team():
 
 
 @app.route("/delete_all_data",methods=["DELETE"])
-def delete_data():
+def delete_data_all():
     db.delete_all_data()
     return jsonify({"message":"All Data deleted Successfully"})
+
+
+@app.route("/delete_one_data/<id>",methods=["GET"])
+def delete_data_one(id):
+    db.delete_one(id)
+    return jsonify({"message":id})
+
+
+
 if __name__=="__main___":
     app.run(debug=True)

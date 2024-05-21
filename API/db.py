@@ -28,6 +28,7 @@ def insert_one(age=None,batting_rating=None,bowling_rating=None,name=None,wicket
     collection_data.insert_one(data_to_insert)
     return collection_data
 
+
 def delete_all_team():
     return collection_team.delete_many({})
 # Find the first document where the "name" field is "Alice"
@@ -54,4 +55,7 @@ def get_teams():
     return all_data
 
 
-print(len(get_all()))
+def delete_one(id):
+
+    return collection_data.find_one({id:id})
+    #return "Succesfully Deleted"

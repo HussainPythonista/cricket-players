@@ -1,50 +1,46 @@
-
 <div>
-    <button (click)="add_player()">add</button>
-
-    <!-- <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-        <label for="name">Name</label>
-        <input id="name" formControlName="name">
-      
-        <label for="age">Age</label>
-        <input id="age" formControlName="age" type="number">
-      
-        <label for="batting_rating">Batting Rating</label>
-        <input id="batting_rating" formControlName="batting_rating" type="number">
-        
-        <label for="bowling_rating">Bowling Rating</label>
-        <input id="bowling_rating" formControlName="bowling_rating" type="number">
-      
-        <button type="submit">Submit</button>
-    </form> -->
-    <div>
-
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Batting Rating</th>
-                <th>Bowling Rating</th>
-                <th>Wicket Keeper Rating</th>
-            </tr>
-            <div>
-
-                <input id="name" formControlName="name" *ngIf="add_player_bool==true">
-            </div>
-            <div>
-                <tr *ngFor="let player of player_list">
-                <td >{{player.name}}</td>
-                <td >{{player.age}}</td>
-                <td >{{player.batting_rating}}</td>
-                <td >{{player.bowling_rating}}</td>
-                <td >{{player.wicket_keeper_rating}}</td>
-                </tr>
-            </div>
-             
-        </table>
-        
-
-    </div>
+    <button (click)="add_player_check()">Add</button>
     
-</div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Batting Rating</th>
+                    <th>Bowling Rating</th>
+                    <th>Wicket Keeper Rating</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Conditionally display the form -->
+                <tr *ngIf="add_player_bool">
+                    <td colspan="5">
+                        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                            <input id="name" formControlName="name" placeholder="Name">
+                            <input id="age" formControlName="age" min="1" type="number" placeholder="Age">
+                            <input id="batting_rating" min="1" max="10" formControlName="batting_rating" type="number" placeholder="Batting Rating">
+                            <input id="bowling_rating" min="1" max="10" formControlName="bowling_rating" type="number" placeholder="Bowling Rating">
+                            <input id="wicket_keeper_rating" min="1" max="10" formControlName="wicket_keeper_rating" type="number" placeholder="Wicket Keeper Rating">
+                            <button type="submit">Submit</button>
+                            <button type="submit" (click)="add_player_check()">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- Display the player list -->
+                <tr *ngFor="let player of player_list">
+                    <td><input type="checkbox" name="" id="" ></td>
 
+                    <td>{{player.name}}</td>
+                    <td>{{player.age}}</td>
+                    <td>{{player.batting_rating}}</td>
+                    <td>{{player.bowling_rating}}</td>
+                    <td>{{player.wicket_keeper_rating}}</td>
+                    <button (onclick)="delete_record(player.id)">Delete</button>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
