@@ -1,5 +1,5 @@
 export interface Player {
-    id:number,
+    player_no:any,
     name: string;
     age: number;
     batting_rating:number;

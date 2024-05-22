@@ -11,8 +11,9 @@ app=Flask(__name__)
 CORS(app)
 
 
-def calculate_avg(team):
-    return "done"
+
+
+
 @app.route("/generate_post", methods=["POST"])
 def generate_players_post():
 
@@ -76,14 +77,15 @@ def insert_many():
 @app.route("/insert_one",methods=["POST"])
 def insert_one():
     data=request.get_json()
-    
+    player_no=data['player_no']
     name=data["name"]
     bowling_rating=int(data["bowling_rating"])
     batting_rating=int(data["batting_rating"])
     age=data["age"]
     wicket_keeper_rating=int(data["wicket_keeper_rating"])
     
-    db.insert_one(name=name,age=age,wicket_keeper_rating=wicket_keeper_rating,batting_rating=batting_rating,bowling_rating=bowling_rating)
+    db.insert_one(player_no=player_no,name=name,age=age,wicket_keeper_rating=wicket_keeper_rating,
+                  batting_rating=batting_rating,bowling_rating=bowling_rating)
     return jsonify({"message":"Inserted Succesfully"})
     
 
@@ -100,10 +102,12 @@ def delete_data_all():
     return jsonify({"message":"All Data deleted Successfully"})
 
 
-@app.route("/delete_one_data/<id>",methods=["GET"])
+@app.route("/delete_one_data/<id>",methods=["DELETE"])
 def delete_data_one(id):
-    db.delete_one(id)
-    return jsonify({"message":id})
+
+    id=int(id)
+    return jsonify(db.delete_one_record(id))
+
 
 
 

@@ -1,51 +1,187 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-}
-
-form {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0;
-    padding: 0;
-}
-
-form input {
-    padding: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-form button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
+/* General Styles */
+.btn {
+    padding: 10px;
+    margin: 5px;
     border: none;
     cursor: pointer;
-    margin-left: 10px;
 }
 
-form button:hover {
-    background-color: #45a049;
+img {
+    vertical-align: middle;
+}
+
+/* Container for buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between buttons */
+    margin-bottom: 20px; /* Space below button container */
+}
+
+/* Data Table */
+.data-table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-weight: 600;
+    color: black;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background: linear-gradient(to right, #FF6B6B, #3F51B5);
+}
+
+.data-table th,
+.data-table td {
+    border-bottom: 1px solid black;
+    padding: 8px;
+    border-right: 1px solid #ddd; /* Add right border to separate columns */
+}
+
+.data-table td:last-child {
+    border-right: none;
+}
+
+.table-col {
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+}
+
+/* Column Headers */
+.column-header {
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    color: black;
+    background: white;
+}
+
+
+
+/* Alternating Row Colors */
+table tr:nth-child(even) {
+    background-color: #FFFFFF;
+    color: #7a3fb5;
+}
+
+table tr:nth-child(odd) {
+    color: #FFFFFF;
+}
+
+/* Custom Checkbox */
+.custom-checkbox input[type="checkbox"] {
+    margin: 0;
+    transform: scale(1.2);
+    color: white;
+    padding: 4px 2px;
+}
+
+/* Form Styles */
+.form-class {
+    display: flex;
+    flex-wrap: nowrap; /* Keep inputs on a single line */
+    
+    padding-left: 50px;
+    
+    justify-content: space-between; /* Distribute inputs evenly */
+}
+
+.form-class input[type="number"], 
+.form-class input[type="text"] {
+    padding: 5px;
+    box-shadow: 0 0 0 1px #ddd;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus, 
+input[type="text"]:focus {
+    padding-left: 40px;
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px #007bff;
+    
+}
+
+.custom-input:hover,
+.custom-input:focus {
+    border-color: darkpurple;
+    transform: scale(1.02);
+}
+
+.name-input {
+    border-right: 1px solid #ddd;
+    width: 15%; /* Adjusted to match the name column */
+}
+
+.age-input {
+    width: 5%; /* Adjusted to match the age column */
+}
+
+.bowling-input{
+    width: 15%;
+    border-right: 1px solid #ddd;
+}
+.wicket-keeper-input{
+    padding: 40px;
+    width: 15%;
+    border-right: 1px solid #ddd;
+}
+.batting-input
+ {
+    border-right: 1px solid #ddd;
+    padding-left: 200px;
+    width: 15%; /* Adjusted to match the rating columns */
+}
+
+.batting-input{
+    padding-left: 40px;
+}
+/* Center Buttons */
+.center-button {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    background: white;
+    width: fit-content;
+}
+
+/* Button Styles */
+.btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.delete-button {
+    background: red;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.add_button_align {
+    background: green;
+}
+
+/* Additional Row Hover Effect */
+.student-row {
+    transition: transform 0.3s ease;
+}
+
+.student-row:hover {
+    transform: scale(1.01);
+}
+
+/* Header Styles */
+header h1 {
+    font-size: 70px;
+    font-weight: 600;
+    background-image: linear-gradient(to left, #553c9a, #b393d3);
+    color: beige;
+    background-clip: text;
+    -webkit-background-clip: text;
 }

@@ -19,9 +19,10 @@ def get_all():
         all_data.append(single_data)
     return all_data
 
-def insert_one(age=None,batting_rating=None,bowling_rating=None,name=None,wicket_keeper_rating=None):
+def insert_one(player_no=None,age=None,batting_rating=None,bowling_rating=None,name=None,wicket_keeper_rating=None):
+    
     data_to_insert={
-        "name":name,"age":age,"batting_rating":batting_rating,
+        'player_no':player_no,"name":name,"age":age,"batting_rating":batting_rating,
         "bowling_rating":bowling_rating,"wicket_keeper_rating":wicket_keeper_rating
         }
     
@@ -54,8 +55,16 @@ def get_teams():
         all_data.append(single_data)
     return all_data
 
+def get_one_data(player_id):
+    data=collection_data.find_one({'player_no':player_id},{'_id':0})
+    if data==None:
+        return None
+    else:
+        return data 
 
-def delete_one(id):
-
-    return collection_data.find_one({id:id})
-    #return "Succesfully Deleted"
+def delete_one_record(player_id):
+    if get_one_data(player_id=player_id)==None:
+        return "No data to delete"
+    else:
+        (collection_data.delete_one({'player_no':player_id}))
+        return "Succesfully Deleted"

@@ -24,4 +24,11 @@ export class PlayerService {
       return this.http.post<Player>(`${this.apiUrl}/insert_one`, players_info);
     }
   
+    delete_player_info(player_id:any):Observable<any>{
+      return this.http.delete<any>(`${this.apiUrl}/delete_one_data/${player_id}`)
+    }
+  
+    delete_all_data():Observable<any>{
+      return this.http.delete<any>(`${this.apiUrl}/delete_all_data`)
+    }
 }

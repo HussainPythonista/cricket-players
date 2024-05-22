@@ -18,9 +18,11 @@ import { response } from 'express';
 export class PlayeruiComponent implements OnInit{
   add_player_bool:boolean=false;
   myForm: FormGroup;
-
-
+  display_check:boolean=false
+  ascending:boolean=false
   player_list:Player[]=[]
+  sort:boolean=false
+  all_checked:boolean=false
   add_player_check(){
         
         this.add_player_bool=!this.add_player_bool
@@ -56,8 +58,66 @@ export class PlayeruiComponent implements OnInit{
         }
       )
     }
-    
+    sortedData:Player[]=[]
+    needToSort(col_sort:any){
+      this.sort=true
+      this.ascending=!this.ascending
+      if (col_sort=="name"){
+        if  (this.ascending==false){
+          this.sortedData= this.player_list.sort((a:any,b:any)=>a.name.localeCompare(b.name))
+        }
+        else{
+          this.sortedData=this.player_list.sort((a:any,b:any)=>b.name.localeCompare(a.name))
+        }
+      }
+
+
+      if (col_sort=="age"){
+        if  (this.ascending==false){
+          this.sortedData= this.player_list.sort((a:any,b:any)=>a.age-b.age)
+        }
+        else{
+          this.sortedData=this.player_list.sort((a:any,b:any)=>b.age-a.age)
+        }
+      }
+
+      if (col_sort=="batting_rating"){
+        if  (this.ascending==false){
+          this.sortedData= this.player_list.sort((a:any,b:any)=>a.batting_rating-b.batting_rating)
+        }
+        else{
+          this.sortedData= this.player_list.sort((a:any,b:any)=>b.batting_rating-a.batting_rating)
+        }
+      }
+
+      if (col_sort=="bowling_rating"){
+        if  (this.ascending==false){
+          this.sortedData=this.player_list.sort((a:any,b:any)=>a.bowling_rating-b.bowling_rating)
+        }
+        else{
+          this.sortedData=this.player_list.sort((a:any,b:any)=>b.bowling_rating-a.bowling_rating)
+        }
+      }
+
+      if (col_sort=="wicket_keeper_rating"){
+        if  (this.ascending==false){
+          this.sortedData=this.player_list.sort((a:any,b:any)=>a.wicket_keeper_rating-b.wicket_keeper_rating)
+        }
+        else{
+          this.sortedData=this.player_list.sort((a:any,b:any)=>b.wicket_keeper_rating-a.wicket_keeper_rating)
+        }
+      }
+    }
+
+    checkAll(){
+      this.all_checked=!this.all_checked
+    }
+    delete_selected_data(){
+
+    }
     delete_record(id:number){
       console.log(id,"will be delete")
     }
+
+
 }
