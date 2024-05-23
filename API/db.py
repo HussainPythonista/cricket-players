@@ -77,4 +77,6 @@ def update_player_info(player_no,age,batting_rating,bowling_rating,name,wicket_k
         "bowling_rating":bowling_rating,"wicket_keeper_rating":wicket_keeper_rating}}
     collection_data.update_one(filter_,update_info)
     
-   
+def deleted_many_selected(list_data):
+    query={"player_no": {"$in": list_data}}
+    return collection_data.delete_many(query)

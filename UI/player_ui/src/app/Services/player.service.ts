@@ -35,7 +35,7 @@ export class PlayerService {
     single_player(player_no:any):Observable<any>{
       return this.http.get<any>(`${this.apiUrl}/one_student/${player_no}`)
     }
-    update_player_info(players_info:Player):Observable<any>{
-      //studentData.roll_no = studentData.roll_no;
-      return this.http.post<Player>(`${this.apiUrl}/insert_one`, players_info);}
+    delete_selected(player_no_list:any):Observable<any>{
+      return this.http.delete<any>(`${this.apiUrl}/delete_selected/${player_no_list}`)
+    }
 }

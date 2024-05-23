@@ -6,7 +6,7 @@
     <button title="Add Players" (click)="add_player_check()" class="btn add_button_align">
       <img src="assets/add-user.png" alt="Edit Icon" width="20" height="20">
     </button>
-    <button title="Delete Selected" (click)="delete_selected_data()" class="btn delete-button">
+    <button title="Delete Selected" (click)="delete_selected_all(selected_data)" class="btn delete-button">
       <img src="assets/trash-bin.png" alt="Edit Icon" width="20" height="20">
     </button>
   </div>
@@ -87,7 +87,7 @@
           
             <ng-template #viewRow>
               <td class="custom-checkbox">
-                <input type="checkbox" [checked]="all_checked">
+                <input type="checkbox" [checked]="all_checked" (click)="delete_selected(player.player_no)">
               </td>
               <td>{{player.name}}</td>
               <td>{{player.age}}</td>

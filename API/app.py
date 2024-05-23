@@ -1,6 +1,6 @@
 from flask import Flask,jsonify,request
 from data_file import player_list
-
+import re
 from flask_cors import CORS
 from ops_file import Players
 import db
@@ -64,7 +64,6 @@ def team():
 
 
 
-
 #Insert data into main Collection
 @app.route("/insert_many",methods=["POST"])
 def insert_many():
@@ -118,6 +117,19 @@ def one_player(player_no):
     player_no=int(player_no)
     single_player=db.get_one_data(player_no)
     return jsonify(single_player)
+
+@app.route("/delete_selected/<list_data>",methods=["DELETE"])
+def delete_selected(list_data):
+    # Use regular expression to find all numbers in the string
+    numbers = re.findall(r'\d+', list_data)
+
+    # Convert the found numbers from strings to integers
+    numbers = [int(num) for num in numbers]
+
+    numbers=list(set(numbers))
+    db.deleted_many_selected(numbers)
+    return jsonify("Deleted succesfully")
+
 
 if __name__=="__main___":
     app.run(debug=True)

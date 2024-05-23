@@ -171,8 +171,15 @@ export class PlayeruiComponent implements OnInit{
     checkAll(){
       this.all_checked=!this.all_checked
     }
-    delete_selected_data(){
-      if (this.all_checked){
+    selected_data:any=[]
+    delete_selected(player_no:any){
+        this.selected_data.push(player_no)
+        
+        
+    }
+    delete_all:boolean=false
+    delete_selected_all(selected_data:any){
+      if (this.all_checked==true){
         this.playerService.delete_all_data().subscribe(
           (response)=>
             
@@ -180,6 +187,15 @@ export class PlayeruiComponent implements OnInit{
             
         )
       }
+      else{
+          this.playerService.delete_selected(selected_data).subscribe(
+            (response)=>{
+              console.log(response)
+              this.get_all_players()
+            }
+          )
+      }
+      
     }
     delete_record(id:number){
       this.playerService.delete_player_info(id).subscribe(
@@ -216,4 +232,6 @@ export class PlayeruiComponent implements OnInit{
       console.log(this.editForm.value)
      // this.playerService.add_players()
     }
+
+    
 }
