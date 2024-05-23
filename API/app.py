@@ -109,7 +109,11 @@ def delete_data_one(id):
     return jsonify(db.delete_one_record(id))
 
 
-
+@app.route("/one_student/<player_no>",methods=["GET"])
+def one_player(player_no):
+    player_no=int(player_no)
+    single_player=db.get_one_data(player_no)
+    return jsonify(single_player)
 
 if __name__=="__main___":
     app.run(debug=True)

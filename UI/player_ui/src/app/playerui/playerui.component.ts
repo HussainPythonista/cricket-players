@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component,OnInit,Input,ChangeDetectorRef  } from '@angular/core';
+import { Component,OnInit  } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { PlayerService } from '../Services/player.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Player } from '../../models/player.models';
-import { response } from 'express';
+
 
 @Component({
   selector: 'app-playerui',
@@ -23,6 +23,8 @@ export class PlayeruiComponent implements OnInit{
   player_list:Player[]=[]
   sort:boolean=false
   all_checked:boolean=false
+  edit_player_bool:boolean=false
+
   add_player_check(){
         
         this.add_player_bool=!this.add_player_bool
@@ -43,11 +45,15 @@ export class PlayeruiComponent implements OnInit{
       this.playerService.getPlayers().subscribe(
         (response)=>{
           this.player_list=response
+          
         }
       )
     }
     ngOnInit() {
-      this.get_all_players()
+      
+        this.get_all_players()
+        console.log(this.get_all_players())
+      
     }
     onSubmit(): void {
       //this.player_list.unshift(this.myForm.value);
@@ -113,11 +119,28 @@ export class PlayeruiComponent implements OnInit{
       this.all_checked=!this.all_checked
     }
     delete_selected_data(){
-
+      if (this.all_checked){
+        this.playerService.delete_all_data().subscribe(
+          (response)=>
+            
+            this.display_check=true
+            
+        )
+      }
     }
     delete_record(id:number){
-      console.log(id,"will be delete")
+      this.playerService.delete_player_info(id).subscribe(
+        (response)=>{
+          this.get_all_players()
+        }
+      )
     }
 
+    find_one_player(id:any){
+      
+    }
+    edit_player_info(id:any){
+      console.log(id)
 
+    }
 }

@@ -1,6 +1,6 @@
 <div *ngIf="display_check">
 
-    <h1>No Data Present</h1>
+    <h1>No Data Present To Display</h1>
 </div>
 <ng-template [ngIf]="display_check==false">
     <div class="button-container">
@@ -67,25 +67,31 @@
                         </form>
                     </td>
                 </tr>
-                <!-- Display the player list -->
-                <tr *ngFor="let player of (sort ? sortedData : player_list)" class="student-row">
-                    <td class="custom-checkbox">
-                        <input type="checkbox" [checked]="all_checked">
-                    </td>
-                    <td>{{player.name}}</td>
-                    <td>{{player.age}}</td>
-                    <td>{{player.batting_rating}}</td>
-                    <td>{{player.bowling_rating}}</td>
-                    <td>{{player.wicket_keeper_rating}}</td>
-                    <td>
-                        <button class="btn delete-button" (click)="delete_record(player.player_no)">
-                            <img src="assets/trash-bin.png" alt="Edit Icon" width="20" height="20">
-                        </button>
-                        <button class="btn">
-                            <img src="assets/8542056_edit_write_icon.png" alt="Edit Icon" width="20" height="20">
-                        </button>
-                    </td>
-                </tr>
+                
+                
+                    <tr *ngFor="let player of (sort ? sortedData : player_list)" class="student-row">
+                        <ng-container>
+                            
+                            <td class="custom-checkbox">
+                            <input type="checkbox" [checked]="all_checked">
+                            </td>
+                            <td>{{player.name}}</td>
+                            <td>{{player.age}}</td>
+                            <td>{{player.batting_rating}}</td>
+                            <td>{{player.bowling_rating}}</td>
+                            <td>{{player.wicket_keeper_rating}}</td>
+                            <td>
+                                <button class="btn delete-button" (click)="delete_record(player.player_no)">
+                                    <img src="assets/trash-bin.png" alt="Edit Icon" width="20" height="20">
+                                </button>
+                                <button class="btn">
+                                    <img src="assets/8542056_edit_write_icon.png" alt="Edit Icon" width="20" height="20" (click)="edit_player_info(player.player_no)">
+                                </button>
+                            </td>
+                        </ng-container>
+                    </tr>
+                        
+                
             </tbody>
         </table>
     </div>
