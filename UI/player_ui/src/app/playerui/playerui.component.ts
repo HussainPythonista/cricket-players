@@ -27,7 +27,9 @@ export class PlayeruiComponent implements OnInit{
   all_checked:boolean=false
   edit_player_roll:any;
   open:boolean=false
-  
+  actionType:string;
+  edit_player_id:number=0
+
     constructor(private fb: FormBuilder,public playerService:PlayerService) {
       this.myForm = this.fb.group({
         player_no:[''],
@@ -46,12 +48,23 @@ export class PlayeruiComponent implements OnInit{
         bowling_rating:[''],
         wicket_keeper_rating:['']
       });
+
+      this.actionType = '';
     }
+    setAction(action: string) {
+      this.actionType = action;
+    }
+  
     
     add_player_check(){
-        
+      if (this.edit_player_roll!=null){
+        this.cancel_edit()
+
+      }
+      else{
       this.add_player_bool=!this.add_player_bool
-      console.log(this.add_player_bool)
+      this.resetForm()
+      console.log(this.add_player_bool)}
     }
 
     
@@ -79,6 +92,7 @@ export class PlayeruiComponent implements OnInit{
       
     }
     onSubmit(): void {
+      
       if (this.add_player_bool==true){
         var last_player=this.player_list[0]
         var player_no=last_player["player_no"]+1
@@ -91,8 +105,15 @@ export class PlayeruiComponent implements OnInit{
             console.log(response)
           }
           )}
-      else{
-        console.log()
+      else if(this.edit_player_roll!=null){
+        this.myForm.value["player_no"]=this.edit_player_roll
+        this.playerService.add_players(this.myForm.value).subscribe(
+          (response)=>{
+            this.get_all_players()
+            this.resetForm()
+            this.cancel_edit()
+            console.log(response)
+          })
       }
       
     }
@@ -181,9 +202,15 @@ export class PlayeruiComponent implements OnInit{
      this.edit_player_roll=null
     }
     edit_player_info(id:any){
-      this.edit=true
+      if (this.add_player_bool==true)
+        this.add_player_check()
       this.edit_player_roll=id
       
+    }
+
+    save_edit:boolean=false
+    save_edit_data(){
+      this.save_edit!=this.save_edit
     }
     updated_player_info(){
       console.log(this.editForm.value)

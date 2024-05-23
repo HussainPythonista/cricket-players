@@ -76,8 +76,8 @@
               <td><input formControlName="bowling_rating" type="text" [(ngModel)]="player.bowling_rating" required></td>
               <td><input formControlName="wicket_keeper_rating" type="text" [(ngModel)]="player.wicket_keeper_rating" required></td>
               <td>
-                <button class="btn save-button" type="button" >
-                  <img src="assets/8666542_save_icon.png" alt="Save Icon" width="20" height="20">
+                <button class="btn save-button" type="submit" (click)="save_edit_data()">
+                  <img src="assets/8666542_save_icon.png" alt="Save Icon" width="20" height="20" >
                 </button>
                 <button class="btn cancel-button" type="button" (click)="cancel_edit()">
                   <img src="assets/4781838_cancel_close_delete_exit_logout_icon.png" alt="Cancel Icon" width="20" height="20">

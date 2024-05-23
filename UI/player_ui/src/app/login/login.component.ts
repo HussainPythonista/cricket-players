@@ -3,8 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { LoginService } from '../Services/login.service';
 import { CommonModule } from '@angular/common';
 
-
-
 @Component({
   selector: 'app-login',
   standalone: true,
