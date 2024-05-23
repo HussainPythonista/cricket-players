@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component,OnInit  } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { PlayerService } from '../Services/player.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Player } from '../../models/player.models';
+import { response } from 'express';
 
 
 @Component({
   selector: 'app-playerui',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,HttpClientModule],
+  imports: [CommonModule,ReactiveFormsModule,HttpClientModule,FormsModule],
   templateUrl: './playerui.component.html',
   styleUrl: './playerui.component.css',
   providers:[PlayerService]
@@ -18,20 +19,27 @@ import { Player } from '../../models/player.models';
 export class PlayeruiComponent implements OnInit{
   add_player_bool:boolean=false;
   myForm: FormGroup;
+  editForm:FormGroup;
   display_check:boolean=false
   ascending:boolean=false
   player_list:Player[]=[]
   sort:boolean=false
   all_checked:boolean=false
-  edit_player_bool:boolean=false
-
-  add_player_check(){
-        
-        this.add_player_bool=!this.add_player_bool
-        console.log(this.add_player_bool)
-    }
+  edit_player_roll:any;
+  open:boolean=false
+  
     constructor(private fb: FormBuilder,public playerService:PlayerService) {
       this.myForm = this.fb.group({
+        player_no:[''],
+        name: [''],
+        age: [''],
+        batting_rating: [''],
+        bowling_rating:[''],
+        wicket_keeper_rating:['']
+      });
+
+      this.editForm = this.fb.group({
+        player_no:[''],
         name: [''],
         age: [''],
         batting_rating: [''],
@@ -40,29 +48,53 @@ export class PlayeruiComponent implements OnInit{
       });
     }
     
+    add_player_check(){
+        
+      this.add_player_bool=!this.add_player_bool
+      console.log(this.add_player_bool)
+    }
+
+    
 
     get_all_players(){
       this.playerService.getPlayers().subscribe(
         (response)=>{
-          this.player_list=response
-          
+          this.player_list=response.sort((a:any,b:any)=>b.player_no-a.player_no)
+          return this.player_list
         }
       )
     }
     ngOnInit() {
-      
+        
         this.get_all_players()
-        console.log(this.get_all_players())
+       
+        console.log(this.player_list.length)
+      
+    }
+    edit:boolean=false
+
+    resetForm() {
+      this.myForm.reset();
+      this.editForm.reset();
       
     }
     onSubmit(): void {
-      //this.player_list.unshift(this.myForm.value);
-      this.playerService.add_players(this.myForm.value).subscribe(
-        (response)=>{
-          this.get_all_players()
-          console.log(response)
-        }
-      )
+      if (this.add_player_bool==true){
+        var last_player=this.player_list[0]
+        var player_no=last_player["player_no"]+1
+        
+        this.myForm.value["player_no"]=player_no
+        this.playerService.add_players(this.myForm.value).subscribe(
+          (response)=>{
+            this.get_all_players()
+            this.resetForm()
+            console.log(response)
+          }
+          )}
+      else{
+        console.log()
+      }
+      
     }
     sortedData:Player[]=[]
     needToSort(col_sort:any){
@@ -135,12 +167,26 @@ export class PlayeruiComponent implements OnInit{
         }
       )
     }
-
+    single_player_info:any;
     find_one_player(id:any){
-      
+      this.playerService.single_player(id).subscribe(
+        (response)=>{
+          this.single_player_info=response
+          console.log(response)
+        }
+      )
+    }
+
+    cancel_edit(){
+     this.edit_player_roll=null
     }
     edit_player_info(id:any){
-      console.log(id)
-
+      this.edit=true
+      this.edit_player_roll=id
+      
+    }
+    updated_player_info(){
+      console.log(this.editForm.value)
+     // this.playerService.add_players()
     }
 }

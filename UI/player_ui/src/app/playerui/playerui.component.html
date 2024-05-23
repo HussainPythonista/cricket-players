@@ -1,98 +1,111 @@
 <div *ngIf="display_check">
-
-    <h1>No Data Present To Display</h1>
+  <h1>No Data Present To Display</h1>
 </div>
-<ng-template [ngIf]="display_check==false">
-    <div class="button-container">
-        <button title="Add Players" (click)="add_player_check()" class="btn add_button_align">
-            <img src="assets/add-user.png" alt="Edit Icon" width="20" height="20">
-        </button>
-        <button title="Delete Selected" (click)="delete_selected_data()" class="btn delete-button">
-            <img src="assets/trash-bin.png" alt="Edit Icon" width="20" height="20">
-        </button>
-    </div>
-    <div>
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th class="checkbox-cell" class="column-header">
-                        <input type="checkbox" (click)="checkAll()">
-                    </th>
-                    <th class="column-header">Name
-                        <button (click)="needToSort('name')" title="Sort" class="sort-button">
-                            <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
-                        </button>
-                    </th>
-                    <th class="column-header">Age
-                        <button (click)="needToSort('age')" title="Sort" class="sort-button">
-                            <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
-                        </button>
-                    </th>
-                    <th class="column-header">Batting Rating
-                        <button (click)="needToSort('batting_rating')" title="Sort" class="sort-button">
-                            <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
-                        </button>
-                    </th>
-                    <th class="column-header">Bowling Rating
-                        <button (click)="needToSort('bowling_rating')" title="Sort" class="sort-button">
-                            <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
-                        </button>
-                    </th>
-                    <th class="column-header">Wicket Keeper Rating
-                        <button (click)="needToSort('wicket_keeper_rating')" title="Sort" class="sort-button">
-                            <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
-                        </button>
-                    </th>
-                    <th class="column-header">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Conditionally display the form -->
-                <tr *ngIf="add_player_bool">
-                    <td colspan="7">
-                        <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form-class">
-                            <input id="name" formControlName="name" class="form-input name-input" placeholder="Name" type="text">
-                            <input id="age" formControlName="age" class="form-input age-input" min="1" type="number" placeholder="Age">
-                            <input id="batting_rating" formControlName="batting_rating" class="form-input batting-input" min="1" max="10" type="number" placeholder="Batting Rating">
-                            <input id="bowling_rating" formControlName="bowling_rating" class="form-input bowling-input" min="1" max="10" type="number" placeholder="Bowling Rating">
-                            <input id="wicket_keeper_rating" formControlName="wicket_keeper_rating" class="form-input wicket-keeper-input" min="1" max="10" type="number" placeholder="Wicket Keeper Rating">
-                            <div>
-                            <button class="btn center-button">
-                                <img src="assets/8666542_save_icon.png" alt="Edit Icon" width="20" height="20">
-                            </button>
-                            <button class="btn center-button" (click)="add_player_check()">
-                                <img src="assets/4781838_cancel_close_delete_exit_logout_icon.png" alt="Edit Icon" width="20" height="20">
-                            </button>
-                            </div>
-                        </form>
-                    </td>
-                </tr>
-                
-                
-                    <tr *ngFor="let player of (sort ? sortedData : player_list)" class="student-row">
-                        <ng-container>
-                            
-                            <td class="custom-checkbox">
-                            <input type="checkbox" [checked]="all_checked">
-                            </td>
-                            <td>{{player.name}}</td>
-                            <td>{{player.age}}</td>
-                            <td>{{player.batting_rating}}</td>
-                            <td>{{player.bowling_rating}}</td>
-                            <td>{{player.wicket_keeper_rating}}</td>
-                            <td>
-                                <button class="btn delete-button" (click)="delete_record(player.player_no)">
-                                    <img src="assets/trash-bin.png" alt="Edit Icon" width="20" height="20">
-                                </button>
-                                <button class="btn">
-                                    <img src="assets/8542056_edit_write_icon.png" alt="Edit Icon" width="20" height="20" (click)="edit_player_info(player.player_no)">
-                                </button>
-                            </td>
-                        </ng-container>
-                    </tr>
-                        
-                
-            </tbody>
-        </table>
-    </div>
+<ng-template [ngIf]="!display_check">
+  <div class="button-container">
+    <button title="Add Players" (click)="add_player_check()" class="btn add_button_align">
+      <img src="assets/add-user.png" alt="Edit Icon" width="20" height="20">
+    </button>
+    <button title="Delete Selected" (click)="delete_selected_data()" class="btn delete-button">
+      <img src="assets/trash-bin.png" alt="Edit Icon" width="20" height="20">
+    </button>
+  </div>
+  <div>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form-class">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="checkbox-cell column-header">
+              <input type="checkbox" (click)="checkAll()">
+            </th>
+            <th class="column-header">Name
+              <button (click)="needToSort('name')" title="Sort" class="sort-button">
+                <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
+              </button>
+            </th>
+            <th class="column-header">Age
+              <button (click)="needToSort('age')" title="Sort" class="sort-button">
+                <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
+              </button>
+            </th>
+            <th class="column-header">Batting Rating
+              <button (click)="needToSort('batting_rating')" title="Sort" class="sort-button">
+                <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
+              </button>
+            </th>
+            <th class="column-header">Bowling Rating
+              <button (click)="needToSort('bowling_rating')" title="Sort" class="sort-button">
+                <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
+              </button>
+            </th>
+            <th class="column-header">Wicket Keeper Rating
+              <button (click)="needToSort('wicket_keeper_rating')" title="Sort" class="sort-button">
+                <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
+              </button>
+            </th>
+            <th class="column-header">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Conditionally display the form -->
+          <tr *ngIf="add_player_bool">
+            <td colspan="7">
+              <input id="name" formControlName="name" class="form-input name-input" placeholder="Name" type="text" required>
+              <input id="age" formControlName="age" class="form-input age-input" min="1" type="number" placeholder="Age" required>
+              <input id="batting_rating" formControlName="batting_rating" class="form-input batting-input" required min="1" max="10" type="number" placeholder="Batting Rating">
+              <input id="bowling_rating" formControlName="bowling_rating" class="form-input bowling-input" required min="1" max="10" type="number" placeholder="Bowling Rating">
+              <input id="wicket_keeper_rating" formControlName="wicket_keeper_rating" required class="form-input wicket-keeper-input" min="1" max="10" type="number" placeholder="Wicket Keeper Rating">
+              <div>
+                <button class="btn center-button" type="submit">
+                  <img src="assets/8666542_save_icon.png" alt="Edit Icon" width="20" height="20">
+                </button>
+                <button class="btn center-button" (click)="add_player_check()">
+                  <img src="assets/4781838_cancel_close_delete_exit_logout_icon.png" alt="Edit Icon" width="20" height="20">
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngFor="let player of (sort ? sortedData : player_list); let i = index" class="student-row">
+            
+            <ng-container *ngIf="edit_player_roll === player.player_no; else viewRow">
+              <td><input type="checkbox" [checked]="all_checked"></td>
+              <td><input formControlName="name" type="text" [(ngModel)]="player.name" required></td>
+              <td><input formControlName="age" type="text" [(ngModel)]="player.age" required></td>
+              <td><input formControlName="batting_rating" type="text" [(ngModel)]="player.batting_rating" required></td>
+              <td><input formControlName="bowling_rating" type="text" [(ngModel)]="player.bowling_rating" required></td>
+              <td><input formControlName="wicket_keeper_rating" type="text" [(ngModel)]="player.wicket_keeper_rating" required></td>
+              <td>
+                <button class="btn save-button" type="button" >
+                  <img src="assets/8666542_save_icon.png" alt="Save Icon" width="20" height="20">
+                </button>
+                <button class="btn cancel-button" type="button" (click)="cancel_edit()">
+                  <img src="assets/4781838_cancel_close_delete_exit_logout_icon.png" alt="Cancel Icon" width="20" height="20">
+                </button>
+              </td>
+            </ng-container>
+          
+            <ng-template #viewRow>
+              <td class="custom-checkbox">
+                <input type="checkbox" [checked]="all_checked">
+              </td>
+              <td>{{player.name}}</td>
+              <td>{{player.age}}</td>
+              <td>{{player.batting_rating}}</td>
+              <td>{{player.bowling_rating}}</td>
+              <td>{{player.wicket_keeper_rating}}</td>
+              <td>
+                <button class="btn delete-button" (click)="delete_record(player.player_no)">
+                  <img src="assets/trash-bin.png" alt="Edit Icon" width="20" height="20">
+                </button>
+                <button class="btn" (click)="edit_player_info(player.player_no)">
+                  <img src="assets/8542056_edit_write_icon.png" alt="Edit Icon" width="20" height="20">
+                </button>
+              </td>
+            </ng-template>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
 </ng-template>

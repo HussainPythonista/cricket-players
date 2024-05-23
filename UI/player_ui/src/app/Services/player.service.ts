@@ -31,4 +31,8 @@ export class PlayerService {
     delete_all_data():Observable<any>{
       return this.http.delete<any>(`${this.apiUrl}/delete_all_data`)
     }
+
+    single_player(player_no:any):Observable<any>{
+      return this.http.get<any>(`${this.apiUrl}/one_student/${player_no}`)
+    }
 }

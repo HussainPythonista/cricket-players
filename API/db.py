@@ -68,3 +68,13 @@ def delete_one_record(player_id):
     else:
         (collection_data.delete_one({'player_no':player_id}))
         return "Succesfully Deleted"
+
+def update_player_info(player_no,age,batting_rating,bowling_rating,name,wicket_keeper_rating):
+    filter_={"player_no":player_no}
+
+    update_info={'$set':{
+        "name":name,"age":age,"batting_rating":batting_rating,
+        "bowling_rating":bowling_rating,"wicket_keeper_rating":wicket_keeper_rating}}
+    collection_data.update_one(filter_,update_info)
+    
+   

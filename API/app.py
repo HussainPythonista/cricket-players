@@ -84,10 +84,14 @@ def insert_one():
     age=data["age"]
     wicket_keeper_rating=int(data["wicket_keeper_rating"])
     
-    db.insert_one(player_no=player_no,name=name,age=age,wicket_keeper_rating=wicket_keeper_rating,
-                  batting_rating=batting_rating,bowling_rating=bowling_rating)
-    return jsonify({"message":"Inserted Succesfully"})
-    
+    if db.get_one_data(player_no)==None:
+        db.insert_one(player_no=player_no,name=name,age=age,wicket_keeper_rating=wicket_keeper_rating,
+                    batting_rating=batting_rating,bowling_rating=bowling_rating)
+        return jsonify({"message":"Inserted Succesfully"})
+    else:
+        db.update_player_info(player_no=player_no,name=name,age=age,wicket_keeper_rating=wicket_keeper_rating,
+                    batting_rating=batting_rating,bowling_rating=bowling_rating)
+        return jsonify({"message":"Updated Succesfully"})
 
 @app.route("/delete_all_teams",methods=["DELETE"])
 def delete_team():
