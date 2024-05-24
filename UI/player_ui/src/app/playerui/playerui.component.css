@@ -56,6 +56,9 @@ img {
     background: white;
 }
 
+.same-width {
+    width: 150px; /* Adjust the width as needed */
+}
 
 
 /* Alternating Row Colors */
@@ -184,4 +187,12 @@ header h1 {
     color: beige;
     background-clip: text;
     -webkit-background-clip: text;
+}
+
+.input-add input{
+    padding-left: 100px;
+}
+
+.content-wrapper{
+    margin-left: 15%;
 }
