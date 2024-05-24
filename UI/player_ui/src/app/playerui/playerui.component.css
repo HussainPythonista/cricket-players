@@ -58,7 +58,9 @@ img {
 
 .same-width {
     width: 150px; /* Adjust the width as needed */
+    
 }
+
 
 
 /* Alternating Row Colors */
@@ -189,10 +191,18 @@ header h1 {
     -webkit-background-clip: text;
 }
 
+.input-add {
+    padding-left: 50px;
+    
+}
 .input-add input{
-    padding-left: 100px;
+   margin-left: 10px;
 }
 
 .content-wrapper{
     margin-left: 15%;
+}
+
+.same-width #name{
+    background-color: #007bff;
 }

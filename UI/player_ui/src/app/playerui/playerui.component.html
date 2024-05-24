@@ -3,11 +3,12 @@
     <h1>No Data Present To Display</h1>
   </div>
   <ng-template [ngIf]="!display_check">
+    <h1> Player Info</h1>
     <div class="button-container">
-      <button title="Add Players" (click)="add_player_check()" class="btn add_button_align">
+      <button title="Add Players" (click)="add_player_check()" class="btn center-button">
         <img src="assets/add-user.png" alt="Edit Icon" width="20" height="20">
       </button>
-      <button title="Delete Selected" (click)="delete_selected_all(selected_data)" class="btn delete-button">
+      <button title="Delete Selected" (click)="delete_selected_all(selected_data)" class="btn center-button">
         <img src="assets/trash-bin.png" alt="Edit Icon" width="20" height="20">
       </button>
     </div>
@@ -50,27 +51,30 @@
           <tbody>
             <!-- Conditionally display the form -->
             <tr *ngIf="add_player_bool" class="input-add">
+
               <td colspan="7">
-                <input id="name" formControlName="name" class=" same-width" placeholder="Name" type="text" required>
-                <input id="age" formControlName="age" class="same-width" min="1" type="number" placeholder="Age" required>
-                <input id="batting_rating" formControlName="batting_rating" class="same-width" required min="1" max="10" type="number" placeholder="Batting Rating">
-                <input id="bowling_rating" formControlName="bowling_rating" class="same-width" required min="1" max="10" type="number" placeholder="Bowling Rating">
-                <input id="wicket_keeper_rating" formControlName="wicket_keeper_rating" required class="same-width" min="1" max="10" type="number" placeholder="Wicket Keeper Rating">
-                <div>
-                  <button class="btn center-button" type="submit">
-                    <img src="assets/8666542_save_icon.png" alt="Edit Icon" width="20" height="20">
-                  </button>
-                  <button class="btn center-button" (click)="add_player_check()">
-                    <img src="assets/4781838_cancel_close_delete_exit_logout_icon.png" alt="Edit Icon" width="20" height="20">
-                  </button>
+                <div class="input-add">
+                  <input id="name" formControlName="name" class=" same-width " placeholder="Name" type="text" required>
+                  <input id="age" formControlName="age" class="same-width" min="1" type="number" placeholder="Age" required>
+                  <input id="batting_rating" formControlName="batting_rating" class="same-width" required min="1" max="10" type="number" placeholder="Batting Rating">
+                  <input id="bowling_rating" formControlName="bowling_rating" class="same-width" required min="1" max="10" type="number" placeholder="Bowling Rating">
+                  <input id="wicket_keeper_rating" formControlName="wicket_keeper_rating" required class="same-width" min="1" max="10" type="number" placeholder="Wicket Keeper Rating">
+                  
+                    <button class="btn center-button" type="submit">
+                      <img src="assets/8666542_save_icon.png" alt="Edit Icon" width="20" height="20">
+                    </button>
+                    <button class="btn center-button" (click)="add_player_check()">
+                      <img src="assets/4781838_cancel_close_delete_exit_logout_icon.png" alt="Edit Icon" width="20" height="20">
+                    </button>
                 </div>
+                
               </td>
             </tr>
 
             <tr *ngFor="let player of (sort ? sortedData : player_list); let i = index" class="student-row">
               
               <ng-container *ngIf="edit_player_roll === player.player_no; else viewRow">
-                <td><input type="checkbox" [checked]="all_checked"></td>
+                <input type="checkbox" [checked]="all_checked">
                 <td><input formControlName="name" type="text" [(ngModel)]="player.name" required></td>
                 <td><input formControlName="age" type="text" [(ngModel)]="player.age" required></td>
                 <td><input formControlName="batting_rating" type="text" [(ngModel)]="player.batting_rating" required></td>
@@ -96,10 +100,10 @@
                 <td class="same-width">{{player.bowling_rating}}</td>
                 <td class="same-width">{{player.wicket_keeper_rating}}</td>
                 <td>
-                  <button class="btn delete-button" (click)="delete_record(player.player_no)">
+                  <button class="btn center-button" (click)="delete_record(player.player_no)">
                     <img src="assets/trash-bin.png" alt="Edit Icon" width="20" height="20">
                   </button>
-                  <button class="btn" (click)="edit_player_info(player.player_no)">
+                  <button class="btn center-button" (click)="edit_player_info(player.player_no)">
                     <img src="assets/8542056_edit_write_icon.png" alt="Edit Icon" width="20" height="20">
                   </button>
                 </td>
