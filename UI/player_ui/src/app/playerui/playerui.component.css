@@ -10,9 +10,22 @@ img {
     vertical-align: middle;
 }
 
+.header-container {
+    display: flex; /* Display its children in a row */
+    align-items: center; /* Vertically center its children */
+    
+}
+
+.header-container h1 {
+    margin: 0; /* Remove default margin */
+}
+
+
+
 /* Container for buttons */
 .button-container {
     display: flex;
+    width: 100%;
     justify-content: center;
     gap: 20px; /* Space between buttons */
     margin-bottom: 20px; /* Space below button container */
@@ -182,27 +195,45 @@ input[type="text"]:focus {
 }
 
 /* Header Styles */
-header h1 {
-    font-size: 70px;
-    font-weight: 600;
-    background-image: linear-gradient(to left, #553c9a, #b393d3);
-    color: beige;
-    background-clip: text;
-    -webkit-background-clip: text;
-}
 
-.input-add {
-    padding-left: 50px;
-    
-}
-.input-add input{
-   margin-left: 10px;
-}
+
 
 .content-wrapper{
     margin-left: 15%;
 }
 
-.same-width #name{
-    background-color: #007bff;
+
+/* Style for all input elements */
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+/* Hover effect */
+input:hover {
+    border-color: #999;
+}
+
+/* Focus effect */
+input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+/* Header style */
+h1 {
+    font-family: 'Brush Script MT';
+    font-size: 50px;
+    font-weight: bold;
+    color: #181818;
+    text-align: center;
+    margin-bottom: 20px;
+}
+th{
+    color: #ddd;
 }
