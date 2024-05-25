@@ -1,7 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
-body{
-    background: whitesmoke;
-    
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 20px;
+    color: #181818; /* Main text color */
 }

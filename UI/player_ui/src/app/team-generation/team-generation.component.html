@@ -1,8 +1,22 @@
+
 <div class="content">
-    <input type="number" [(ngModel)]="number_of_teams">
-
-    <button (click)="generate_teams()">Generate Team</button>
-
+    <div class="header-container">
+        <h1>Team Generator</h1>
+    </div>
+    <div class="input-container">
+        <input type="number" class="input-field" [(ngModel)]="number_of_teams" placeholder="Number of Teams">
+        <button class="btn generate-btn" (click)="generate_teams()">Generate Team</button>
+    </div>
+    <div class="team-row">
+        <div *ngFor="let team of teams" class="team">
+            <h2>Team Name: {{ team.team_name }}</h2>
+            <h3>Name of the players in team</h3>
+            <ul>
+                <li *ngFor="let player of team.players">{{ player.name }}</li>
+            </ul>
+            <p>Batting Rating: {{ team.Rating_avg.batting }}</p>
+            <p>Bowling Rating: {{ team.Rating_avg.bowling }}</p>
+            <p>Total Team Rating: {{ team.Rating_avg.Team_overall }}</p>
+        </div>
+    </div>
 </div>
-
-

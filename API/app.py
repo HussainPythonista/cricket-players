@@ -56,6 +56,7 @@ def generate_players_post():
 def get_teams():
     """Retrieves all teams from the database and returns them as JSON."""
     teams = db.get_teams()
+    print(teams)
     return jsonify(teams)
 
 @app.route("/players")

@@ -1,35 +1,74 @@
 /* General Styles */
-.btn {
-    padding: 10px;
-    margin: 5px;
-    border: none;
-    cursor: pointer;
+
+/* Header Container */
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
+.header-container h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #181818; /* Main text color */
+}
+
+/* Input Container */
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    padding: 10px;
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 200px; /* Fixed width for better alignment */
+}
+
+.input-field:focus {
+    border-color: #007bff; /* Primary color */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #7a41e3; /* Primary color */
+    color: white;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.generate-btn {
+    background-color: #28a745; /* Green color */
+}
+
+.generate-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Image Styling */
 img {
     vertical-align: middle;
 }
 
-.header-container {
-    display: flex; /* Display its children in a row */
-    align-items: center; /* Vertically center its children */
-    
-}
 
-.header-container h1 {
-    margin: 0; /* Remove default margin */
-}
-
-
-
-/* Container for buttons */
-.button-container {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    gap: 20px; /* Space between buttons */
-    margin-bottom: 20px; /* Space below button container */
-}
 
 /* Data Table */
 .data-table {
@@ -40,14 +79,14 @@ img {
     color: black;
     background-clip: text;
     -webkit-background-clip: text;
-    background: linear-gradient(to right, #FF6B6B, #3F51B5);
+    background: linear-gradient(to right, #FF6B6B, #3F51B5); /* Gradient from red to blue */
 }
 
 .data-table th,
 .data-table td {
     border-bottom: 1px solid black;
     padding: 8px;
-    border-right: 1px solid #ddd; /* Add right border to separate columns */
+    border-right: 1px solid #ddd;
 }
 
 .data-table td:last-child {
@@ -57,7 +96,7 @@ img {
 .table-col {
     color: white;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 30px;
+    font-size: 1.2em;
 }
 
 /* Column Headers */
@@ -65,21 +104,18 @@ img {
     padding: 10px;
     text-align: left;
     font-weight: bold;
-    color: black;
+    color: #181818; /* Main text color */
     background: white;
 }
 
 .same-width {
-    width: 150px; /* Adjust the width as needed */
-    
+    width: 150px;
 }
-
-
 
 /* Alternating Row Colors */
 table tr:nth-child(even) {
     background-color: #FFFFFF;
-    color: #7a3fb5;
+    color: #7a3fb5; /* Purple color for text */
 }
 
 table tr:nth-child(odd) {
@@ -97,28 +133,26 @@ table tr:nth-child(odd) {
 /* Form Styles */
 .form-class {
     display: flex;
-    flex-wrap: nowrap; /* Keep inputs on a single line */
-    
+    flex-wrap: nowrap;
     padding-left: 50px;
-    
-    justify-content: space-between; /* Distribute inputs evenly */
+    justify-content: space-between;
 }
 
 .form-class input[type="number"], 
 .form-class input[type="text"] {
-    padding: 5px;
-    box-shadow: 0 0 0 1px #ddd;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
+    padding: 10px;
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input[type="number"]:focus, 
 input[type="text"]:focus {
-    padding-left: 40px;
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 0 2px #007bff;
-    
+    border-color: #007bff; /* Primary color */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .custom-input:hover,
@@ -129,32 +163,28 @@ input[type="text"]:focus {
 
 .name-input {
     border-right: 1px solid #ddd;
-    width: 15%; /* Adjusted to match the name column */
+    width: 15%;
 }
 
 .age-input {
-    width: 5%; /* Adjusted to match the age column */
+    width: 5%;
 }
 
-.bowling-input{
+.bowling-input {
     width: 15%;
     border-right: 1px solid #ddd;
 }
-.wicket-keeper-input{
-    padding: 40px;
+
+.wicket-keeper-input {
     width: 15%;
     border-right: 1px solid #ddd;
 }
-.batting-input
- {
+
+.batting-input {
     border-right: 1px solid #ddd;
-    padding-left: 200px;
-    width: 15%; /* Adjusted to match the rating columns */
+    width: 15%;
 }
 
-.batting-input{
-    padding-left: 40px;
-}
 /* Center Buttons */
 .center-button {
     text-align: center;
@@ -167,22 +197,30 @@ input[type="text"]:focus {
     width: fit-content;
 }
 
-/* Button Styles */
-.btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-
 .delete-button {
-    background: red;
+    background: #ff6b6b; /* Accent color */
     padding: 10px;
     border-radius: 4px;
     font-size: 14px;
-    transition: border-color 0.3s ease;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.delete-button:hover {
+    background: #d9534f; /* Darker red on hover */
 }
 
 .add_button_align {
-    background: green;
+    background: #28a745; /* Accent color */
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.add_button_align:hover {
+    background: #218838; /* Darker green on hover */
 }
 
 /* Additional Row Hover Effect */
@@ -194,14 +232,10 @@ input[type="text"]:focus {
     transform: scale(1.01);
 }
 
-/* Header Styles */
-
-
-
-.content-wrapper{
+/* Content Wrapper */
+.content-wrapper {
     margin-left: 15%;
 }
-
 
 /* Style for all input elements */
 input {
@@ -212,28 +246,27 @@ input {
     box-sizing: border-box;
     font-size: 16px;
     outline: none;
-    transition: border-color 0.3s ease; /* Smooth transition for border color */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover effect */
 input:hover {
     border-color: #999;
 }
 
-/* Focus effect */
 input:focus {
-    border-color: #007bff;
+    border-color: #007bff; /* Primary color */
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
+
 /* Header style */
 h1 {
-    
     font-size: 50px;
     font-weight: bold;
-    color: #181818;
+    color: #181818; /* Main text color */
     text-align: center;
     margin-bottom: 20px;
 }
-th{
-    color: #ddd;
+
+th {
+    color: #ddd; /* Light text color for table headers */
 }

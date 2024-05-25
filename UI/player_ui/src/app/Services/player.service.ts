@@ -7,7 +7,7 @@ import { Player } from '../../models/player.models';
   providedIn: 'root'
 })
 export class PlayerService {
-  private apiUrl = 'http://localhost:5000'; // Replace with your Flask API URL
+  private apiUrl = 'http://localhost:5000'; 
 
 
   constructor(private http: HttpClient) { }
