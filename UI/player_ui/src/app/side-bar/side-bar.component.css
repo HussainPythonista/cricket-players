@@ -1,0 +1,38 @@
+/* Sidebar styling */
+.sidebar {
+    height: 100%;
+    width: 17%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Button styling */
+  .sidebar-button {
+    padding: 15px 20px;
+    margin: 10px 0;
+    width: 90%;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .sidebar-button:hover {
+    background-color: #575757;
+    transform: scale(1.05);
+  }
+  
+  .sidebar-button:active {
+    background-color: #777;
+  }
+  
