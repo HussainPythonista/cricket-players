@@ -13,6 +13,7 @@ def insertMany(data):
     
 
 def get_all():
+    
     all_data=[]
     for single_data in collection_data.find():
         single_data['_id'] = str(single_data['_id'])

@@ -1,13 +1,14 @@
 
-<div class="content">
+<div class="content"  >
     <div class="header-container">
         <h1>Team Generator</h1>
     </div>
+    
     <div class="input-container">
         <input type="number" class="input-field" [(ngModel)]="number_of_teams" placeholder="Number of Teams">
         <button class="btn generate-btn" (click)="generate_teams()">Generate Team</button>
     </div>
-    <div class="team-row" >
+    <div class="team-row" *ngIf="error==false">
         <div *ngFor="let team of teams" class="team">
             <h2>Team Name: {{ team.team_name }}</h2>
             <h3>Player Name</h3>
@@ -19,6 +20,10 @@
             <p>Total Team Rating: {{ team.Rating_avg.Team_overall }}</p>
         </div>
     </div>
-   
-    {{error_show}}
+    <div *ngIf="error==true">
+        <h1 [ngStyle]="{'color':'red'}">{{error_show}}</h1>
+    </div>
+    
+    
 </div>
+
