@@ -2,7 +2,6 @@ from data_file import player_list
 
 
 
-data=player_list
 #Overall Rating
 class Calculate:
 
@@ -29,10 +28,10 @@ class Calculate:
     def final_data(self):
         for index,single_data in enumerate(self.data):
             overall_returned_data=self.calculate_overall(single_data)
-            data[index]["Overall_rating"]=overall_returned_data
+            self.data[index]["Overall_rating"]=overall_returned_data
     
 
-        sorted_data=sorted(data, key=lambda sort: sort['Overall_rating'],reverse=True)
+        sorted_data=sorted(self.data, key=lambda sort: sort['Overall_rating'],reverse=True)
         return sorted_data
     
     def sorted_data(self):
@@ -40,9 +39,9 @@ class Calculate:
         Function which return the players based on rating by batting,bowling,wicket keeper
         '''
         final_sorted_data={}
-        final_sorted_data["Batting"]=sorted(data,key=lambda sort:sort["batting_rating"],reverse=True)
-        final_sorted_data["Bowling"]=sorted(data,key=lambda sort:sort["bowling_rating"],reverse=True)
-        final_sorted_data["Wicket_Keeper"]=sorted(data,key=lambda sort:sort["wicket_keeper_rating"],reverse=True)
+        final_sorted_data["Batting"]=sorted(self.data,key=lambda sort:sort["batting_rating"],reverse=True)
+        final_sorted_data["Bowling"]=sorted(self.data,key=lambda sort:sort["bowling_rating"],reverse=True)
+        final_sorted_data["Wicket_Keeper"]=sorted(self.data,key=lambda sort:sort["wicket_keeper_rating"],reverse=True)
         return final_sorted_data
 
 

@@ -11,6 +11,8 @@ def generate_players():
     number_team_requested = data["team"]
 
     all_players = db.get_all()
+
+    print(all)
     total_players_length = len(all_players)
     
     max_teams = total_players_length // 11
