@@ -23,7 +23,7 @@ def generate_players():
         return jsonify(teams)
     
     elif max_teams < number_team_requested:
-        return jsonify(f"You can generate only {max_teams} teams. Add {(number_team_requested * 11) - total_players_length} players to create {number_team_requested} teams.")
+        return jsonify(f"You can generate only {max_teams} teams. Add {(number_team_requested * 11) - total_players_length} more players to create {number_team_requested} teams.")
    
     else:
         players = Players(all_players, number_team_requested)

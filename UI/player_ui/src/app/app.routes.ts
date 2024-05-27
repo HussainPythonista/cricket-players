@@ -11,7 +11,7 @@ export const routes: Routes = [
         children: [
           { path: 'player-info', component: PlayeruiComponent },
           { path: 'team-generation', component: TeamGenerationComponent },
-          { path: 'player-info', redirectTo: 'player-info', pathMatch: 'full' }
+          { path: '', redirectTo: 'player-info', pathMatch: 'full' }
         ]
       },
     ///{path:'',component:SideBarComponent}

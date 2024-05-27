@@ -79,11 +79,11 @@
               
               <ng-container *ngIf="edit_player_roll === player.player_no; else viewRow">
                 <input type="checkbox" [checked]="all_checked">
-                <td><input formControlName="name" type="text" [(ngModel)]="player.name" required></td>
-                <td><input formControlName="age" type="text" [(ngModel)]="player.age" required></td>
-                <td><input formControlName="batting_rating" type="text" [(ngModel)]="player.batting_rating" required></td>
-                <td><input formControlName="bowling_rating" type="text" [(ngModel)]="player.bowling_rating" required></td>
-                <td><input formControlName="wicket_keeper_rating" type="text" [(ngModel)]="player.wicket_keeper_rating" required></td>
+                <td><input formControlName="name" type="text" [(ngModel)]="single_data.name" required></td>
+                <td><input formControlName="age" type="text" [(ngModel)]="single_data.age" required></td>
+                <td><input formControlName="batting_rating" type="text" [(ngModel)]="single_data.batting_rating" required></td>
+                <td><input formControlName="bowling_rating" type="text" [(ngModel)]="single_data.bowling_rating" required></td>
+                <td><input formControlName="wicket_keeper_rating" type="text" [(ngModel)]="single_data.wicket_keeper_rating" required></td>
                 <td>
                   <button class="btn save-button" type="submit" (click)="save_edit_data()">
                     <img src="assets/8666542_save_icon.png" alt="Save Icon" width="20" height="20" >

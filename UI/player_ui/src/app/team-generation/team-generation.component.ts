@@ -22,7 +22,7 @@ export class TeamGenerationComponent implements OnInit {
   teams:any;
   
   ngOnInit(): void {
-    this.get_team()
+    this.delete_team()
   }
 
   get_team(){
@@ -34,14 +34,28 @@ export class TeamGenerationComponent implements OnInit {
       })
     }
 
+    error_show:string=''
     generate_teams(){
       var team_genrate={'team':this.number_of_teams}
       this.teamService.generate_teams_back(team_genrate).subscribe(
         (response)=>{
-          this.get_team()
-          console.log(response)
+          
+          if (typeof response=='string'){
+            this.error_show=response
+            console.log(this.error_show)
+          }
+          else{
+            this.get_team()
+          }
         },(error)=>{
           console.log(error)
+        }
+      )
+    }
+    delete_team(){
+      this.teamService.delete_teams().subscribe(
+        (response)=>{
+          console.log(response)
         }
       )
     }

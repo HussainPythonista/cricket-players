@@ -17,4 +17,8 @@ export class TeamService {
   generate_teams_back(number_teams:any):Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/generate_post`,number_teams)
   }
+
+  delete_teams(){
+    return this.http.delete<any>(`${this.apiUrl}/delete_all_teams`)
+  }
 }
