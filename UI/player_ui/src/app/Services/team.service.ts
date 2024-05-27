@@ -13,4 +13,8 @@ export class TeamService {
   get_team():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/teams`)
   }
+
+  generate_teams_back(number_teams:any):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/generate_post`,number_teams)
+  }
 }

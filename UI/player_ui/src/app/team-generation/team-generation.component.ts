@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TeamService } from '../Services/team.service';
 import { HttpClientModule } from '@angular/common/http';
-import { response } from 'express';
-import { error } from 'console';
+
 
 
 @Component({
@@ -15,33 +14,35 @@ import { error } from 'console';
   styleUrl: './team-generation.component.css',
   providers:[TeamService]
 })
-export class TeamGenerationComponent {
+export class TeamGenerationComponent implements OnInit {
 
   constructor(private teamService:TeamService){
   }
   number_of_teams:number=0
   teams:any;
-  team_name:any;
-  teamsData: any;
-  teamsPerRow: number=0;
-  generate_teams(){
+  
+  ngOnInit(): void {
+    this.get_team()
+  }
+
+  get_team(){
     this.teamService.get_team().subscribe(
       (response)=>{
         this.teams=response
-        
       },(error)=>{
         console.log(error)
       })
     }
-    getRowIndices(): number[] {
-      const rowCount = Math.ceil(this.teamsData.length / this.teamsPerRow);
-      return Array.from({ length: rowCount }, (_, index) => index);
+
+    generate_teams(){
+      var team_genrate={'team':this.number_of_teams}
+      this.teamService.generate_teams_back(team_genrate).subscribe(
+        (response)=>{
+          this.get_team()
+          console.log(response)
+        },(error)=>{
+          console.log(error)
+        }
+      )
     }
-    
-    getTeamsForRow(rowIndex: number): any[] {
-      const startIndex = rowIndex * this.teamsPerRow;
-      const endIndex = Math.min(startIndex + this.teamsPerRow, this.teamsData.length);
-      return this.teamsData.slice(startIndex, endIndex);
-    }
-  
   }

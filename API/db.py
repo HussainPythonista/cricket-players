@@ -80,3 +80,5 @@ def update_player_info(player_no,age,batting_rating,bowling_rating,name,wicket_k
 def deleted_many_selected(list_data):
     query={"player_no": {"$in": list_data}}
     return collection_data.delete_many(query)
+
+print(len(get_all()))

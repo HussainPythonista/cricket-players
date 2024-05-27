@@ -16,7 +16,7 @@ CORS(app)
 
 @app.route("/generate_post", methods=["POST"])
 def generate_players_post():
-
+    delete_team()
     """Generates teams of players based on the number of teams requested."""
     data = request.get_json()
     number_team_requested = data["team"]
@@ -38,6 +38,7 @@ def generate_players_post():
         return jsonify(teams)
     
     elif max_teams < number_team_requested:
+        
         return jsonify(f"You can generate only {max_teams} teams. Add {(number_team_requested * 11) - total_players_length} players to create {number_team_requested} teams.")
    
     else:
@@ -48,8 +49,6 @@ def generate_players_post():
             db.insert_team(f"Team {idx+1}", team,avg)
             
         return jsonify(teams)
-
-
 
 #Retrive the information of team with Players
 @app.route("/teams")

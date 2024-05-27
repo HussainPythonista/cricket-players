@@ -1,3 +1,4 @@
+
 player_list=[
     {
         "player_no": 1,
@@ -367,14 +368,7 @@ player_list=[
         "bowling_rating": 1,
         "wicket_keeper_rating": 8
     },
-    {
-        "player_no": 47,
-        "name": "Brett Lee",
-        "age": 30,
-        "batting_rating": 8,
-        "bowling_rating": 2,
-        "wicket_keeper_rating": 9
-    },
+    
     {
         "player_no": 48,
         "name": "Shaun Pollock",
@@ -478,11 +472,209 @@ player_list=[
         "batting_rating": 7,
         "bowling_rating": 2,
         "wicket_keeper_rating": 8
+    },
+   
+    {
+        "age": 44,
+        "batting_rating": 8,
+        "bowling_rating": 2,
+        "name": "Michael Clarke",
+        "player_no": 50,
+        "wicket_keeper_rating": 1
+    },
+
+    {
+        "age": 50,
+        "batting_rating": 7,
+        "bowling_rating": 3,
+        "name": "Matthew Hayden",
+        "player_no": 52,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 45,
+        "batting_rating": 8,
+        "bowling_rating": 1,
+        "name": "Damien Martyn",
+        "player_no": 53,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 46,
+        "batting_rating": 6,
+        "bowling_rating": 7,
+        "name": "Andrew Symonds",
+        "player_no": 54,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 47,
+        "batting_rating": 5,
+        "bowling_rating": 8,
+        "name": "Brett Lee",
+        "player_no": 55,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 48,
+        "batting_rating": 4,
+        "bowling_rating": 9,
+        "name": "Glenn McGrath",
+        "player_no": 56,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 49,
+        "batting_rating": 5,
+        "bowling_rating": 8,
+        "name": "Shane Warne",
+        "player_no": 57,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 50,
+        "batting_rating": 6,
+        "bowling_rating": 7,
+        "name": "Justin Langer",
+        "player_no": 58,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 49,
+        "batting_rating": 4,
+        "bowling_rating": 8,
+        "name": "Jason Gillespie",
+        "player_no": 59,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 48,
+        "batting_rating": 5,
+        "bowling_rating": 7,
+        "name": "Stuart MacGill",
+        "player_no": 60,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 52,
+        "batting_rating": 6,
+        "bowling_rating": 6,
+        "name": "Mark Waugh",
+        "player_no": 61,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 55,
+        "batting_rating": 7,
+        "bowling_rating": 4,
+        "name": "Steve Waugh",
+        "player_no": 62,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 54,
+        "batting_rating": 8,
+        "bowling_rating": 1,
+        "name": "David Boon",
+        "player_no": 63,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 48,
+        "batting_rating": 6,
+        "bowling_rating": 5,
+        "name": "Darren Lehmann",
+        "player_no": 64,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 39,
+        "batting_rating": 9,
+        "bowling_rating": 1,
+        "name": "Kevin Pietersen",
+        "player_no": 65,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 41,
+        "batting_rating": 8,
+        "bowling_rating": 2,
+        "name": "Andrew Strauss",
+        "player_no": 66,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 42,
+        "batting_rating": 7,
+        "bowling_rating": 5,
+        "name": "Matt Prior",
+        "player_no": 67,
+        "wicket_keeper_rating": 9
+    },
+    {
+        "age": 44,
+        "batting_rating": 7,
+        "bowling_rating": 3,
+        "name": "Paul Collingwood",
+        "player_no": 68,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 43,
+        "batting_rating": 8,
+        "bowling_rating": 1,
+        "name": "Ian Bell",
+        "player_no": 69,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 45,
+        "batting_rating": 6,
+        "bowling_rating": 7,
+        "name": "Andrew Flintoff",
+        "player_no": 70,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 42,
+        "batting_rating": 5,
+        "bowling_rating": 8,
+        "name": "James Anderson",
+        "player_no": 71,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 46,
+        "batting_rating": 4,
+        "bowling_rating": 9,
+        "name": "Graeme Swann",
+        "player_no": 72,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 47,
+        "batting_rating": 6,
+        "bowling_rating": 8,
+        "name": "Stuart Broad",
+        "player_no": 73,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 45,
+        "batting_rating": 5,
+        "bowling_rating": 7,
+        "name": "Steven Finn",
+        "player_no": 74,
+        "wicket_keeper_rating": 1
+    },
+    {
+        "age": 40,
+        "batting_rating": 7,
+        "bowling_rating": 3,
+        "name": "Jonathan Trott",
+        "player_no": 75,
+        "wicket_keeper_rating": 1
     }
+
 ]
 
-
-
-
-
-#print(len(player_list))

@@ -113,30 +113,41 @@ class Players(Calculate):
                 del self.batting[idx]
     
     def assign_players(self):
-
-        #First assign the wicket keepers
-        teams=self.number_of_team()
-
-        while len(teams[-1]) < 11:
-            sliced_batsman=self.batting[0:len(teams)*2]
-            sliced_bowler=self.bowling[0:len(teams)*2]
-            for idx in range(len(teams)):
-                poped_bat = sliced_batsman.pop(0) 
-                self.__pop_values__(poped_bat)
-                teams[idx].append(poped_bat)
-
-                poped_bat = sliced_batsman.pop(-1)
-                self.__pop_values__(poped_bat)
-                teams[idx].append(poped_bat)  
-                          
-                
-                poped_bow = sliced_bowler.pop(0) 
-                self.__pop_values__(poped_bow)
-                teams[idx].append(poped_bow)
-
-                poped_bow = sliced_bowler.pop(-1)
-                self.__pop_values__(poped_bow)
-                teams[idx].append(poped_bow) 
+        
+        teams = self.number_of_team()
+        team_size = len(teams)
+        
+        # Ensure each team has exactly 11 players
+        #for i in range(11):
+        while len(teams[-1])<11:
+            # Slice the required number of batsmen and bowlers
+            sliced_batsman = self.batting[:team_size * 2]
+            sliced_bowler = self.bowling[:team_size * 2]
+            
+            for idx in range(team_size):
+                #if len(teams[idx]) < 11:
+                    # Assign a batsman from the front
+                    poped_bat = sliced_batsman.pop(0)
+                    self.__pop_values__(poped_bat)
+                    teams[idx].append(poped_bat)
+                    
+                #if len(teams[idx]) < 11:
+                    # Assign a batsman from the back
+                    poped_bat = sliced_batsman.pop(-1)
+                    self.__pop_values__(poped_bat)
+                    teams[idx].append(poped_bat)
+                    
+                #if len(teams[idx]) < 11:
+                    # Assign a bowler from the front
+                    poped_bow = sliced_bowler.pop(0)
+                    self.__pop_values__(poped_bow)
+                    teams[idx].append(poped_bow)
+                    
+                #if len(teams[idx]) < 11:
+                    # Assign a bowler from the back
+                    poped_bow = sliced_bowler.pop(-1)
+                    self.__pop_values__(poped_bow)
+                    teams[idx].append(poped_bow)
         
         return teams
     
@@ -164,3 +175,11 @@ class Players(Calculate):
             overall_team_strength+=single_palyer["batting_rating"]+single_palyer["bowling_rating"]+single_palyer["wicket_keeper_rating"]
 
         return overall_team_strength
+    
+# player_list=Players(data,7)
+# print(player_list.assign_players())
+
+# datas=[{'age': 39, 'batting_rating': 9, 'bowling_rating': 1, 'name': 'Kevin Pietersen', 'player_no': 65, 'wicket_keeper_rating': 1}, {'player_no': 2, 'name': 'Rohit Sharma', 'age': 31, 'batting_rating': 8, 'bowling_rating': 3, 'wicket_keeper_rating': 1}, {'player_no': 31, 'name': 'Sunil Narine', 'age': 29, 'batting_rating': 3, 'bowling_rating': 9, 'wicket_keeper_rating': 1}, {'player_no': 34, 'name': 'Brendon McCullum', 'age': 30, 'batting_rating': 3, 'bowling_rating': 9, 'wicket_keeper_rating': 1}, {'player_no': 45, 'name': 'Ricky Ponting', 'age': 34, 'batting_rating': 8, 'bowling_rating': 2, 'wicket_keeper_rating': 9}, {'player_no': 49, 'name': 'Jacques Kallis', 'age': 32, 'batting_rating': 8, 'bowling_rating': 2, 'wicket_keeper_rating': 9}, {'player_no': 38, 'name': 'Suresh Raina', 'age': 28, 'batting_rating': 3, 'bowling_rating': 8, 'wicket_keeper_rating': 1}, {'player_no': 39, 'name': 'MS Dhoni', 'age': 29, 'batting_rating': 4, 'bowling_rating': 8, 'wicket_keeper_rating': 1}, {'player_no': 
+# 15, 'name': 'Chris Gayle', 'age': 28, 'batting_rating': 7, 'bowling_rating': 4, 'wicket_keeper_rating': 1}, {'player_no': 42, 'name': 'Zaheer Khan', 'age': 33, 'batting_rating': 7, 'bowling_rating': 2, 'wicket_keeper_rating': 8}, {'age': 42, 'batting_rating': 7, 'bowling_rating': 5, 'name': 'Matt Prior', 'player_no': 67, 'wicket_keeper_rating': 9}]
+
+# print(len(datas))

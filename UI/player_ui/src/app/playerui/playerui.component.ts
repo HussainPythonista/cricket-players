@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component,OnInit  } from '@angular/core';
+import { ChangeDetectorRef, Component,OnInit  } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { PlayerService } from '../Services/player.service';
@@ -30,7 +30,7 @@ export class PlayeruiComponent implements OnInit{
   actionType:string;
   edit_player_id:number=0
 
-    constructor(private fb: FormBuilder,public playerService:PlayerService) {
+    constructor(private fb: FormBuilder,public playerService:PlayerService,private cdr: ChangeDetectorRef) {
       this.myForm = this.fb.group({
         player_no:[''],
         name: [''],
@@ -117,9 +117,13 @@ export class PlayeruiComponent implements OnInit{
       }
       
     }
+    sort_using:string=''
     sortedData:Player[]=[]
+    
     needToSort(col_sort:any){
+      this.sort_using=col_sort
       this.sort=true
+      
       this.ascending=!this.ascending
       if (col_sort=="name"){
         if  (this.ascending==false){
@@ -168,6 +172,59 @@ export class PlayeruiComponent implements OnInit{
       }
     }
 
+    needToSortDelete(col_sort:any,ascending:any){
+      this.sort_using=col_sort
+      this.sort=true
+      
+      var ascending=ascending
+      if (col_sort=="name"){
+        if  (this.ascending==false){
+          this.sortedData= this.sortedData.sort((a:any,b:any)=>a.name.localeCompare(b.name))
+        }
+        else{
+          this.sortedData=this.sortedData.sort((a:any,b:any)=>b.name.localeCompare(a.name))
+        }
+      }
+
+
+      if (col_sort=="age"){
+        if  (this.ascending==false){
+          this.sortedData= this.sortedData.sort((a:any,b:any)=>a.age-b.age)
+        }
+        else{
+          this.sortedData=this.sortedData.sort((a:any,b:any)=>b.age-a.age)
+        }
+      }
+
+      if (col_sort=="batting_rating"){
+        if  (this.ascending==false){
+          this.sortedData= this.sortedData.sort((a:any,b:any)=>a.batting_rating-b.batting_rating)
+        }
+        else{
+          this.sortedData= this.sortedData.sort((a:any,b:any)=>b.batting_rating-a.batting_rating)
+        }
+      }
+
+      if (col_sort=="bowling_rating"){
+        if  (this.ascending==false){
+          this.sortedData=this.sortedData.sort((a:any,b:any)=>a.bowling_rating-b.bowling_rating)
+        }
+        else{
+          this.sortedData=this.sortedData.sort((a:any,b:any)=>b.bowling_rating-a.bowling_rating)
+        }
+      }
+
+      if (col_sort=="wicket_keeper_rating"){
+        if  (this.ascending==false){
+          this.sortedData=this.sortedData.sort((a:any,b:any)=>a.wicket_keeper_rating-b.wicket_keeper_rating)
+        }
+        else{
+          this.sortedData=this.sortedData.sort((a:any,b:any)=>b.wicket_keeper_rating-a.wicket_keeper_rating)
+        }
+      }
+    }
+
+
     checkAll(){
       this.all_checked=!this.all_checked
     }
@@ -182,9 +239,7 @@ export class PlayeruiComponent implements OnInit{
       if (this.all_checked==true){
         this.playerService.delete_all_data().subscribe(
           (response)=>
-            
             this.display_check=true
-            
         )
       }
       else{
@@ -197,10 +252,24 @@ export class PlayeruiComponent implements OnInit{
       }
       
     }
+    delete_sort:boolean=false
+    sorted_data(){
+      return this.sortedData
+    }
     delete_record(id:number){
       this.playerService.delete_player_info(id).subscribe(
         (response)=>{
-          this.get_all_players()
+          if (this.sort==true){
+            
+            this.delete_sort=this.ascending
+            
+            this.needToSortDelete(this.sort_using,this.delete_sort)
+            this.cdr.detectChanges();
+          }
+          else{
+            this.get_all_players()
+          }
+         
         }
       )
     }
