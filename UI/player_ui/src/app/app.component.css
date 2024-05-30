@@ -1,0 +1,22 @@
+/* Data Table */
+.data-table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-weight: 600;
+    color: black;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background: linear-gradient(to right, #FF6B6B, #3F51B5); /* Gradient from red to blue */
+}
+
+.data-table th,
+.data-table td {
+    border-bottom: 1px solid black;
+    padding: 8px;
+    border-right: 1px solid #ddd;
+}
+
+.data-table td:last-child {
+    border-right: none;
+}

@@ -42,8 +42,6 @@ export class LoginComponent {
       this.loginService.logFailed()
       this.isLoggedIn=this.loginService.login
     }
-
-    console.log("Log from login",this.isLoggedIn)
     
   }
 

@@ -11,11 +11,28 @@
     <div class="team-row" *ngIf="error==false">
         <div *ngFor="let team of teams" class="team">
             <h2>Team Name: {{ team.team_name }}</h2>
-            <h3>Player Name</h3>
-            <ul>
-                <li *ngFor="let player of team.players">{{ player.name }}</li>
-            </ul>
-            <p>Batting Rating: {{ team.Rating_avg.batting }}</p>
+            
+        <table class="data-table">
+            <tr>
+                <th>Player Name</th>
+                <th>Age</th>
+                <th>Batting Rating</th>
+                <th>Bowling Rating</th>
+                <th>Keeper Rating</th>
+            </tr>
+            <tr *ngFor="let player of team.players">
+                <td>{{ player.name }}</td>
+                <td>{{ player.age }}</td>
+                <td>{{ player.batting_rating }}</td>
+                <td>{{ player.bowling_rating }}</td>
+                <td>{{ player.wicket_keeper_rating }}</td>
+            </tr>
+                
+                
+            
+            
+        </table>
+        <p>Batting Rating: {{ team.Rating_avg.batting }}</p>
             <p>Bowling Rating: {{ team.Rating_avg.bowling }}</p>
             <p>Total Team Rating: {{ team.Rating_avg.Team_overall }}</p>
         </div>

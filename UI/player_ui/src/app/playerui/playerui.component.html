@@ -13,6 +13,13 @@
               <img src="assets/trash-bin.png" alt="Delete Selected" width="20" height="20">
           </button>
       </div>
+      <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search by name" (keydown)="handleKeyDown($event)">
+          
+      </div>
+  
+  
+
   </div>
    
     <div>
@@ -24,32 +31,45 @@
               <th class="checkbox-cell column-header">
                 <input type="checkbox" (click)="checkAll()">
               </th>
-              <th class="column-header">Name
-                <button (click)="needToSort('name')" title="Sort" class="sort-button">
-                  <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
-                </button>
-              </th>
-              <th class="column-header">Age
-                <button (click)="needToSort('age')" title="Sort" class="sort-button">
-                  <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
-                </button>
-              </th>
-              <th class="column-header">Batting Rating
-                <button (click)="needToSort('batting_rating')" title="Sort" class="sort-button">
-                  <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
-                </button>
-              </th>
-              <th class="column-header">Bowling Rating
-                <button (click)="needToSort('bowling_rating')" title="Sort" class="sort-button">
-                  <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
-                </button>
-              </th>
-              <th class="column-header">Wicket Keeper Rating
+              <th class="column-header no">
+                No:
                 <button (click)="needToSort('wicket_keeper_rating')" title="Sort" class="sort-button">
-                  <img src="assets/reorder.png" alt="Edit Icon" width="20" height="20">
+                  <img src="assets/reorder.png" alt="Sort Icon" width="20" height="20">
                 </button>
               </th>
-              <th class="column-header">Actions</th>
+              
+              <th class="column-header">
+                Name
+                <button (click)="needToSort('name')" title="Sort" class="sort-button">
+                  <img src="assets/reorder.png" alt="Sort Icon" width="20" height="20">
+                </button>
+              </th>
+              <th class="column-header">
+                Age
+                <button (click)="needToSort('age')" title="Sort" class="sort-button">
+                  <img src="assets/reorder.png" alt="Sort Icon" width="20" height="20">
+                </button>
+              </th>
+              <th class="column-header">
+                Batting Rating
+                <button (click)="needToSort('batting_rating')" title="Sort" class="sort-button">
+                  <img src="assets/reorder.png" alt="Sort Icon" width="20" height="20">
+                </button>
+              </th>
+              <th class="column-header">
+                Bowling Rating
+                <button (click)="needToSort('bowling_rating')" title="Sort" class="sort-button">
+                  <img src="assets/reorder.png" alt="Sort Icon" width="20" height="20">
+                </button>
+              </th>
+              <th class="column-header">
+                Keeper Rating
+                <button (click)="needToSort('wicket_keeper_rating')" title="Sort" class="sort-button">
+                  <img src="assets/reorder.png" alt="Sort Icon" width="20" height="20">
+                </button>
+              </th>
+              
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -58,39 +78,102 @@
 
               
                   <td></td>
-                  <td><input id="name" formControlName="name" class=" same-width " placeholder="Name" type="text" required></td>
-                  <td><input id="age" formControlName="age" class="same-width" min="1" type="number" placeholder="Age" required></td>
-                  <td><input id="batting_rating" formControlName="batting_rating" class="same-width" required min="1" max="10" type="number" placeholder="Batting Rating"></td>
-                  <td><input id="bowling_rating" formControlName="bowling_rating" class="same-width" required min="1" max="10" type="number" placeholder="Bowling Rating"></td>
-                  <td><input id="wicket_keeper_rating" formControlName="wicket_keeper_rating" required class="same-width" min="1" max="10" type="number" placeholder="Wicket Keeper Rating"></td>
+                  <td>{{next_number}}</td>
+                  <td><input id="name" formControlName="name"  placeholder="Name"  class="name"  type="text" required>
+                  <div *ngIf="myForm.get('name')?.invalid && (myForm.get('name')?.dirty || myForm.get('name')?.touched)">
+                    <small *ngIf="myForm.get('name')?.errors?.['required']" [ngStyle]="{'color':'red'}">Name is required.</small>
+                    <small *ngIf="myForm.get('name')?.errors?.['minlength']" [ngStyle]="{'color':'red'}">Name must be at least 3 characters long.</small>
+                  </div>
+                </td>
+                  <td><input id="age" formControlName="age"  min="1" type="number" placeholder="Age" class="age" required>
+                    <div *ngIf="myForm.get('age')?.touched && myForm.get('age')?.invalid">
+                      <small *ngIf="myForm.get('age')?.errors" [ngStyle]="{'color':'red'}">Player Age is required</small>
+                      <small *ngIf="myForm.get('age')?.errors?.['min']" [ngStyle]="{'color':'red'}">Player Age must be at least 1</small>
+                      <small *ngIf="myForm.get('age')?.errors?.['max']" [ngStyle]="{'color':'red'}">Player Age cannot be more than 100</small>
+                    </div>
                   
-                    <button class="btn center-button" type="submit">
+                  </td>
+                  <td><input id="batting_rating" formControlName="batting_rating" class="same-width"
+                    required min="1" max="10" type="number" placeholder="Batting Rating">
+                    <div *ngIf="myForm.get('batting_rating')?.touched && myForm.get('batting_rating')?.invalid">
+                      <small *ngIf="myForm.get('batting_rating')?.errors" ></small>
+                      <small *ngIf="myForm.get('batting_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+                      <small *ngIf="myForm.get('batting_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+                    </div>
+                  </td>
+                  <td><input id="bowling_rating" formControlName="bowling_rating" class="same-width"
+                    required min="1" max="10" type="number" placeholder="Bowling Rating">
+                    <div *ngIf="myForm.get('bowling_rating')?.touched && myForm.get('bowling_rating')?.invalid">
+                      <small *ngIf="myForm.get('bowling_rating')?.errors"></small>
+                      <small *ngIf="myForm.get('bowling_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+                      <small *ngIf="myForm.get('bowling_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+                    </div>
+                  
+                  </td>
+                  <td><input id="wicket_keeper_rating" formControlName="wicket_keeper_rating" class="same-width" required 
+                    min="1" max="10" type="number" placeholder="Keeper Rating">
+                  
+                    <div *ngIf="myForm.get('wicket_keeper_rating')?.touched && myForm.get('wicket_keeper_rating')?.invalid">
+                      <small *ngIf="myForm.get('wicket_keeper_rating')?.errors"></small>
+                      <small *ngIf="myForm.get('wicket_keeper_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+                      <small *ngIf="myForm.get('wicket_keeper_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+                    </div>
+                  </td> 
+                  <div class="button-container">
+                    <button class="btn center-button" type="submit" >
                       <img src="assets/8666542_save_icon.png" alt="Edit Icon" width="20" height="20">
                     </button>
                     <button class="btn center-button" (click)="add_player_check()">
                       <img src="assets/4781838_cancel_close_delete_exit_logout_icon.png" alt="Edit Icon" width="20" height="20">
-                    </button>
+                    </button></div>
                 
                 
               
             </tr>
 
-            <tr *ngFor="let player of (sort ? sortedData : player_list); let i = index" class="student-row">
+            <tr *ngFor="let player of (search ? filered_data :(sort ? sortedData : player_list)); let i = index" class="student-row">
               
               <ng-container *ngIf="edit_player_roll === player.player_no; else viewRow">
                 <input type="checkbox" [checked]="all_checked">
-                <td><input formControlName="name" type="text" [(ngModel)]="single_data.name" required></td>
-                <td><input formControlName="age" type="text" [(ngModel)]="single_data.age" required></td>
-                <td><input formControlName="batting_rating" type="text" [(ngModel)]="single_data.batting_rating" required></td>
-                <td><input formControlName="bowling_rating" type="text" [(ngModel)]="single_data.bowling_rating" required></td>
-                <td><input formControlName="wicket_keeper_rating" type="text" [(ngModel)]="single_data.wicket_keeper_rating" required></td>
+                <td>{{single_data.player_no}}</td>
+                <td><input formControlName="name" type="text" [(ngModel)]="single_data.name" required>
+                  <div *ngIf="myForm.get('name')?.invalid && (myForm.get('name')?.dirty || myForm.get('name')?.touched)">
+                    <small *ngIf="myForm.get('name')?.errors?.['required']" [ngStyle]="{'color':'red'}">Name is required.</small>
+                    <small *ngIf="myForm.get('name')?.errors?.['minlength']" [ngStyle]="{'color':'red'}">Name must be at least 3 characters long.</small>
+                  </div></td>
+                <td><input formControlName="age" type="text" [(ngModel)]="single_data.age" required>
+                  <div *ngIf="myForm.get('age')?.touched && myForm.get('age')?.invalid">
+                    <small *ngIf="myForm.get('age')?.errors" ></small>
+                    <small *ngIf="myForm.get('age')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+                    <small *ngIf="myForm.get('age')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+                  </div></td>
+                <td><input formControlName="batting_rating" type="text" [(ngModel)]="single_data.batting_rating" required>
+                  <div *ngIf="myForm.get('batting_rating')?.touched && myForm.get('batting_rating')?.invalid">
+                    <small *ngIf="myForm.get('batting_rating')?.errors" ></small>
+                    <small *ngIf="myForm.get('batting_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+                    <small *ngIf="myForm.get('batting_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+                  </div></td>
+                <td><input formControlName="bowling_rating" type="text" [(ngModel)]="single_data.bowling_rating" required>
+                  <div *ngIf="myForm.get('bowling_rating')?.touched && myForm.get('bowling_rating')?.invalid">
+                    <small *ngIf="myForm.get('bowling_rating')?.errors" ></small>
+                    <small *ngIf="myForm.get('bowling_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+                    <small *ngIf="myForm.get('bowling_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+                  </div></td>
+                <td><input formControlName="wicket_keeper_rating" type="text" [(ngModel)]="single_data.wicket_keeper_rating" required>
+                  <div *ngIf="myForm.get('wicket_keeper_rating')?.touched && myForm.get('wicket_keeper_rating')?.invalid">
+                    <small *ngIf="myForm.get('wicket_keeper_rating')?.errors" ></small>
+                    <small *ngIf="myForm.get('wicket_keeper_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+                    <small *ngIf="myForm.get('wicket_keeper_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+                  </div></td>
                 <td>
-                  <button class="btn save-button" type="submit" (click)="save_edit_data()">
+                  <div class="button-container">
+                  <button class="btn center-button" type="submit" (click)="save_edit_data()">
                     <img src="assets/8666542_save_icon.png" alt="Save Icon" width="20" height="20" >
                   </button>
-                  <button class="btn cancel-button" type="button" (click)="cancel_edit()">
+                  <button class="btn center-button" type="button" (click)="cancel_edit()">
                     <img src="assets/4781838_cancel_close_delete_exit_logout_icon.png" alt="Cancel Icon" width="20" height="20">
                   </button>
+                  </div>
                 </td>
               </ng-container>
             
@@ -98,18 +181,20 @@
                 <td class="custom-checkbox">
                   <input type="checkbox"  [checked]="all_checked" (click)="delete_selected(player.player_no)">
                 </td>
-                <td class="same-width">{{player.name}}</td>
-                <td class="same-width">{{player.age}}</td>
-                <td class="same-width">{{player.batting_rating}}</td>
-                <td class="same-width">{{player.bowling_rating}}</td>
-                <td class="same-width">{{player.wicket_keeper_rating}}</td>
+                <td >{{player.player_no}}</td>
+                <td >{{player.name}}</td>
+                <td >{{player.age}}</td>
+                <td >{{player.batting_rating}}</td>
+                <td >{{player.bowling_rating}}</td>
+                <td >{{player.wicket_keeper_rating}}</td>
                 <td>
+                  <div class="button-container">
                   <button class="btn center-button" (click)="delete_record(player.player_no)">
                     <img src="assets/trash-bin.png" alt="Edit Icon" width="20" height="20">
                   </button>
                   <button class="btn center-button" (click)="edit_player_info(player.player_no)">
                     <img src="assets/8542056_edit_write_icon.png" alt="Edit Icon" width="20" height="20">
-                  </button>
+                  </button></div>
                 </td>
               </ng-template>
             </tr>

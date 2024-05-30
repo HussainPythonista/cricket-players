@@ -1,7 +1,8 @@
 
 <!-- 
 <header class="header">Player and team view</header-->
-<!-- <app-login ngSkipHydration *ngIf="loginService.login==false; notAuthenticate"></app-login> -->
+<!-- <app-login ngSkipHydration *ngIf="loginService.login==false; notAuthenticate"></app-login>
+<div #notAuthenticate><router-outlet *ngIf="loginService.login==true"></router-outlet></div> -->
 
-<router-outlet #notAuthenticate></router-outlet>
 <!-- <app-team-generation></app-team-generation> -->
+<router-outlet></router-outlet>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,Validators } from '@angular/forms';
 import { PlayerService } from '../Services/player.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Player } from '../../models/player.models';
@@ -28,15 +28,18 @@ export class PlayeruiComponent implements OnInit {
   edit_player_id: number = 0;
   sort_using: string = '';
   sortedData: Player[] = [];
+  text_search=''
+  next_number:number=0
+
 
   constructor(private fb: FormBuilder, public playerService: PlayerService, private cdr: ChangeDetectorRef) {
     this.myForm = this.fb.group({
       player_no: [''],
-      name: [''],
-      age: [''],
-      batting_rating: [''],
-      bowling_rating: [''],
-      wicket_keeper_rating: ['']
+      name: ['',[Validators.required,Validators.minLength(3)]],
+      age: ['',[Validators.required, Validators.min(1), Validators.max(100) ]],
+      batting_rating: ['',[Validators.required, Validators.min(1), Validators.max(10)]],
+      bowling_rating: ['',[Validators.required, Validators.min(1), Validators.max(10)]],
+      wicket_keeper_rating: ['',[Validators.required, Validators.min(1), Validators.max(10)]]
     });
 
     this.editForm = this.fb.group({
@@ -56,6 +59,7 @@ export class PlayeruiComponent implements OnInit {
   }
 
   add_player_check() {
+    this.next_number=(this.player_list.reduce((max, player) => player.player_no > max ? player.player_no : max, 0)+1)
     if (this.edit_player_roll != null) {
       this.cancel_edit();
     } else {
@@ -75,8 +79,9 @@ export class PlayeruiComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.get_all_players();
-    console.log(this.player_list.length);
+    this.get_all_players()
+    console.log(this.player_list.length)
+    
   }
 
   resetForm() {
@@ -85,11 +90,17 @@ export class PlayeruiComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.myForm.invalid) {
+      // If the form is invalid, mark all fields as touched to trigger validation messages
+      this.myForm.markAllAsTouched();
+      return;
+    }
     if (this.add_player_bool) {
-      const last_player = this.player_list[0];
-      const player_no = last_player['player_no'] + 1;
-      this.myForm.value['player_no'] = player_no;
-
+      // Find the highest player number in the original player list
+      const highestPlayerNo = this.player_list.reduce((max, player) => player.player_no > max ? player.player_no : max, 0);
+      const newPlayerNo = highestPlayerNo + 1;
+      this.myForm.value['player_no'] = newPlayerNo;
+  
       this.playerService.add_players(this.myForm.value).subscribe((response) => {
         this.get_all_players();
         this.resetForm();
@@ -190,6 +201,7 @@ export class PlayeruiComponent implements OnInit {
     if (this.add_player_bool) this.add_player_check();
     this.playerService.single_player(id).subscribe((response) => {
       this.single_data = response;
+      // this.cdr.detectChanges();
     });
   }
 
@@ -200,5 +212,46 @@ export class PlayeruiComponent implements OnInit {
 
   updated_player_info() {
     console.log(this.editForm.value);
+  }
+
+  
+  // checkValidLetters(letters:any){
+   
+  //   else if (letters.keyCode >= 65 && letters.keyCode <= 90){
+      
+  //     this.text_search+=letters.key
+  //     this.getPlayerSearch(this.text_search)
+  //   }
+    
+  // }
+  filered_data:any=[]
+  getPlayerSearch(text:any){
+    console.log(text)
+    var filterData=this.player_list.filter((item) =>
+      item.name.toLowerCase().includes(text.toLowerCase())
+    )
+    this.filered_data=filterData
+    
+  }
+  
+  search:boolean=false
+  handleKeyDown(pressedKey:any){
+    this.search=true
+    if (pressedKey.keyCode==8){
+      //console.log(pressedKey.keyCode)
+      this.text_search=this.text_search.slice(0,-1)
+      console.log(this.text_search)
+      this.getPlayerSearch(this.text_search)
+      
+    }
+    else if (pressedKey.keyCode >= 65 && pressedKey.keyCode <= 90){
+      
+        this.text_search+=pressedKey.key
+        this.getPlayerSearch(this.text_search)
+    }
+    if (this.text_search.length==0){
+        this.search=false
+      }
+      console.log(this.search)
   }
 }

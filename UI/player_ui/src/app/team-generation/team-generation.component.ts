@@ -37,6 +37,7 @@ export class TeamGenerationComponent implements OnInit {
     error_show:string=''
     error:boolean=false
     generate_teams(){
+      this.error = false;
       var team_genrate={'team':this.number_of_teams}
 
       this.teamService.generate_teams_back(team_genrate).subscribe(
@@ -46,7 +47,7 @@ export class TeamGenerationComponent implements OnInit {
             
             this.error_show=response
             console.log(this.error_show)
-            this.error=!this.error
+            this.error=true
           }
           else{
             this.get_team()

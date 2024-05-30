@@ -3,10 +3,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px; /* Add gap between team cards */
-    padding: 20px;
+   
     background-color: #f0f4f8; /* Light background color for the content area */
-    width: 80%;
-    margin-left: 20%;
+    width: 85%;
+    margin-left: 18%;
 }
 
 /* Team row styling */
@@ -19,9 +19,10 @@
 
 /* Individual team card styling */
 .team {
+    
     flex: 0 0 calc(33.33% - 20px); /* Adjust width and margins as needed */
-    margin: 10px;
-    padding: 20px; /* Increased padding for better spacing */
+    width: 100%;
+    margin: 10px;/* Increased padding for better spacing */
     border: 1px solid #ccc;
     border-radius: 10px; /* Rounded corners for the cards */
     box-sizing: border-box;
@@ -35,6 +36,32 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
+
+
+.data-table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-weight: 600;
+    color: wheat;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background: linear-gradient(to right, #FF6B6B, #3F51B5); 
+    
+    
+}
+
+
+.data-table th,
+.data-table td {
+    border-bottom: 1px solid rgb(239, 232, 232);
+    padding: 4px;
+    border-right: 1px solid #ddd;
+}
+
+.data-table td:last-child {
+    border-right: none;
+}
 /* Team name styling */
 .team h2 {
     color: #333;

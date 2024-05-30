@@ -14,5 +14,5 @@ export const routes: Routes = [
           { path: '', redirectTo: 'player-info', pathMatch: 'full' }
         ]
       },
-    ///{path:'',component:SideBarComponent}
+    
 ];
