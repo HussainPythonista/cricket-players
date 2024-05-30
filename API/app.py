@@ -98,5 +98,13 @@ def delete_selected(list_data):
     db.deleted_many_selected(numbers)
     return jsonify("Deleted successfully")
 
+@app.route("/edit_selected/<list_data>", methods=["GET"])
+def get_selected(list_data):
+    numbers = re.findall(r'\d+', list_data)
+    numbers = [int(num) for num in numbers]
+    numbers = list(set(numbers))
+    return db.get_selected_data(numbers)
+    
+
 if __name__ == "__main__":
     app.run(debug=True)
