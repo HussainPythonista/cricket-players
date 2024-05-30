@@ -12,10 +12,12 @@
           <button title="Delete Selected" (click)="delete_selected_all(selected_data)" class="btn center-button">
               <img src="assets/trash-bin.png" alt="Delete Selected" width="20" height="20">
           </button>
+          <button class="btn center-button" (click)="edit_bulk()">
+            <img src="assets/8542056_edit_write_icon.png" alt="Edit Icon" width="20" height="20">
+          </button>
       </div>
       <div class="search-container">
           <input type="text" class="search-input" placeholder="Search by name" (keydown)="handleKeyDown($event)">
-          
       </div>
   
   

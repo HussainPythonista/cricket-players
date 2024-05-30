@@ -154,8 +154,24 @@ export class PlayeruiComponent implements OnInit {
 
   selected_data: any[] = [];
   delete_selected(player_no: any) {
-    this.selected_data.push(player_no);
-  }
+     var present=this.selected_data.includes(player_no)
+      
+      if (present){
+        const index = this.selected_data.indexOf(player_no);
+        this.selected_data.splice(index,1)
+        console.log(this.selected_data)
+
+        
+      }
+      else{
+        this.selected_data.push(player_no);
+        console.log(this.selected_data)
+        
+
+      }
+      
+    }
+    
 
   delete_all: boolean = false;
   delete_selected_all(selected_data: any) {
@@ -214,16 +230,12 @@ export class PlayeruiComponent implements OnInit {
     console.log(this.editForm.value);
   }
 
+  bulk_edit:boolean=false
   
-  // checkValidLetters(letters:any){
-   
-  //   else if (letters.keyCode >= 65 && letters.keyCode <= 90){
-      
-  //     this.text_search+=letters.key
-  //     this.getPlayerSearch(this.text_search)
-  //   }
-    
-  // }
+  edit_bulk(){
+    this.bulk_edit=true
+    console.log(this.selected_data)
+  }
   filered_data:any=[]
   getPlayerSearch(text:any){
     console.log(text)
