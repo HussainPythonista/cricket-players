@@ -2,6 +2,21 @@
  <div *ngIf="display_check">
     <h1>No Data Present To Display</h1>
   </div>
+
+
+  <div *ngIf="bulk_edit==true">
+    <tr *ngFor="let single_data of data_bulk_update">
+      
+      {{single_data.player_no}}
+      {{single_data.name}}
+      {{single_data.age}}
+      <input type="number" name="" id="" [(ngModel)]="single_data.batting_rating">
+      <input type="number" name="" id="" [(ngModel)]="single_data.batting_rating">
+      <input type="number" name="" id="" [(ngModel)]="single_data.batting_rating">
+
+    </tr>
+    <button (click)="cancel_bulk_update()">Cancel</button>
+  </div>
   <ng-template [ngIf]="!display_check">
     <div class="header-container">
       <h1>Player Info</h1>
@@ -27,7 +42,9 @@
     <div>
       
       <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form-class">
+       
         <table class="data-table">
+          
           <thead>
             <tr>
               <th class="checkbox-cell column-header">
@@ -74,7 +91,10 @@
               <th>Actions</th>
             </tr>
           </thead>
+         
+
           <tbody>
+            
             <!-- Conditionally display the form -->
             <tr *ngIf="add_player_bool" class="input-add">
 
@@ -181,7 +201,7 @@
             
               <ng-template #viewRow>
                 <td class="custom-checkbox">
-                  <input type="checkbox"  [checked]="all_checked" (click)="delete_selected(player.player_no)">
+                  <input type="checkbox"  [checked]="all_checked" (click)="selected_players(player.player_no)">
                 </td>
                 <td >{{player.player_no}}</td>
                 <td >{{player.name}}</td>

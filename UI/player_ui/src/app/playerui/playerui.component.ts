@@ -153,7 +153,7 @@ export class PlayeruiComponent implements OnInit {
   }
 
   selected_data: any[] = [];
-  delete_selected(player_no: any) {
+  selected_players(player_no: any) {
      var present=this.selected_data.includes(player_no)
       
       if (present){
@@ -161,18 +161,21 @@ export class PlayeruiComponent implements OnInit {
         this.selected_data.splice(index,1)
         console.log(this.selected_data)
 
-        
       }
       else{
         this.selected_data.push(player_no);
         console.log(this.selected_data)
-        
-
       }
-      
     }
-    
+  data_bulk_update:any;
+  get_selected_data(playerList:any){
 
+    this.playerService.get_list_players(playerList).subscribe(
+      (response)=>{
+        this.data_bulk_update= response
+      }
+    )
+  }
   delete_all: boolean = false;
   delete_selected_all(selected_data: any) {
     if (this.all_checked) {
@@ -231,10 +234,12 @@ export class PlayeruiComponent implements OnInit {
   }
 
   bulk_edit:boolean=false
-  
+  cancel_bulk_update(){
+    this.bulk_edit=false
+  }
   edit_bulk(){
     this.bulk_edit=true
-    console.log(this.selected_data)
+    this.get_selected_data(this.selected_data)
   }
   filered_data:any=[]
   getPlayerSearch(text:any){
@@ -266,4 +271,6 @@ export class PlayeruiComponent implements OnInit {
       }
       console.log(this.search)
   }
+
+
 }

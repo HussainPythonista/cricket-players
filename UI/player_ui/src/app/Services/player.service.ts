@@ -38,4 +38,8 @@ export class PlayerService {
     delete_selected(player_no_list:any):Observable<any>{
       return this.http.delete<any>(`${this.apiUrl}/delete_selected/${player_no_list}`)
     }
+
+    get_list_players(player_no_list:any):Observable<any>{
+      return this.http.get<any>(`${this.apiUrl}/edit_selected/[${player_no_list}]`)
+    }
 }
