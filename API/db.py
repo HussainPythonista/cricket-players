@@ -93,3 +93,14 @@ def update_player_info(player_no, age, batting_rating, bowling_rating, name, wic
 def deleted_many_selected(list_data):
     query = {"player_no": {"$in": list_data}}
     return collection_data.delete_many(query)
+
+def get_selected_data(list_data):
+    query = {"player_no": {"$in": list_data}}
+
+    selected_data = []
+    for single_data in collection_data.find(query):
+        single_data['_id'] = str(single_data['_id'])
+        selected_data.append(single_data)
+    return selected_data
+     
+
