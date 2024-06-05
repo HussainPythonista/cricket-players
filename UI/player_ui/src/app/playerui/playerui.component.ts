@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,Validators,FormArray,FormControl  } from '@angular/forms';
 import { PlayerService } from '../Services/player.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Player } from '../../models/player.models';
@@ -16,7 +16,8 @@ import { Player } from '../../models/player.models';
 export class PlayeruiComponent implements OnInit {
   add_player_bool: boolean = false;
   myForm: FormGroup;
-  editForm: FormGroup;
+  editForm!: FormGroup;
+  bulkEditForm: FormGroup;
   display_check: boolean = false;
   ascending: boolean = false;
   player_list: Player[] = [];
@@ -24,13 +25,12 @@ export class PlayeruiComponent implements OnInit {
   all_checked: boolean = false;
   edit_player_roll: any;
   open: boolean = false;
-  actionType: string;
   edit_player_id: number = 0;
   sort_using: string = '';
   sortedData: Player[] = [];
   text_search=''
   next_number:number=0
-
+  bulkForm!:FormGroup;
 
   constructor(private fb: FormBuilder, public playerService: PlayerService, private cdr: ChangeDetectorRef) {
     this.myForm = this.fb.group({
@@ -42,21 +42,18 @@ export class PlayeruiComponent implements OnInit {
       wicket_keeper_rating: ['',[Validators.required, Validators.min(1), Validators.max(10)]]
     });
 
-    this.editForm = this.fb.group({
-      player_no: [''],
-      name: [''],
-      age: [''],
-      batting_rating: [''],
-      bowling_rating: [''],
-      wicket_keeper_rating: ['']
+    this.bulkEditForm = this.fb.group({
+      players: this.fb.array([])
     });
+    this.bulkForm=this.fb.group({
+      batting_rating: ['',[Validators.required, Validators.min(1), Validators.max(10)]],
+      bowling_rating: ['',[Validators.required, Validators.min(1), Validators.max(10)]],
+      wicket_keeper_rating: ['',[Validators.required, Validators.min(1), Validators.max(10)]]
+    })
 
-    this.actionType = '';
+    
   }
 
-  setAction(action: string) {
-    this.actionType = action;
-  }
 
   add_player_check() {
     this.next_number=(this.player_list.reduce((max, player) => player.player_no > max ? player.player_no : max, 0)+1)
@@ -78,12 +75,12 @@ export class PlayeruiComponent implements OnInit {
     });
   }
 
+
   ngOnInit() {
     this.get_all_players()
-    console.log(this.player_list.length)
+    this.get_selected_data(this.selected_data)
     
   }
-
   resetForm() {
     this.myForm.reset();
     this.editForm.reset();
@@ -125,6 +122,9 @@ export class PlayeruiComponent implements OnInit {
   }
 
   applySort() {
+
+
+    
     if (this.sort_using === 'name') {
       this.sortedData = this.player_list.sort((a: any, b: any) =>
         this.ascending ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
@@ -145,6 +145,10 @@ export class PlayeruiComponent implements OnInit {
       this.sortedData = this.player_list.sort((a: any, b: any) =>
         this.ascending ? a.wicket_keeper_rating - b.wicket_keeper_rating : b.wicket_keeper_rating - a.wicket_keeper_rating
       );
+    } else if (this.sort_using==='player_no') {
+      this.sortedData = this.player_list.sort((a: any, b: any) =>
+        this.ascending ? a.player_no - b.player_no : b.player_no - a.player_no
+      );
     }
   }
 
@@ -153,29 +157,7 @@ export class PlayeruiComponent implements OnInit {
   }
 
   selected_data: any[] = [];
-  selected_players(player_no: any) {
-     var present=this.selected_data.includes(player_no)
-      
-      if (present){
-        const index = this.selected_data.indexOf(player_no);
-        this.selected_data.splice(index,1)
-        console.log(this.selected_data)
-
-      }
-      else{
-        this.selected_data.push(player_no);
-        console.log(this.selected_data)
-      }
-    }
-  data_bulk_update:any;
-  get_selected_data(playerList:any){
-
-    this.playerService.get_list_players(playerList).subscribe(
-      (response)=>{
-        this.data_bulk_update= response
-      }
-    )
-  }
+  
   delete_all: boolean = false;
   delete_selected_all(selected_data: any) {
     if (this.all_checked) {
@@ -233,23 +215,7 @@ export class PlayeruiComponent implements OnInit {
     console.log(this.editForm.value);
   }
 
-  bulk_edit:boolean=false
-  cancel_bulk_update(){
-    this.bulk_edit=false
-  }
-  edit_bulk(){
-    this.bulk_edit=true
-    this.get_selected_data(this.selected_data)
-  }
-  filered_data:any=[]
-  getPlayerSearch(text:any){
-    console.log(text)
-    var filterData=this.player_list.filter((item) =>
-      item.name.toLowerCase().includes(text.toLowerCase())
-    )
-    this.filered_data=filterData
-    
-  }
+  
   
   search:boolean=false
   handleKeyDown(pressedKey:any){
@@ -272,5 +238,120 @@ export class PlayeruiComponent implements OnInit {
       console.log(this.search)
   }
 
+  
+  selected_players(player_no: any) {
+    var present=this.selected_data.includes(player_no)
+     
+     if (present){
+       const index = this.selected_data.indexOf(player_no);
+       this.selected_data.splice(index,1)
+       console.log(this.selected_data)
 
+     }
+     else{
+       this.selected_data.push(player_no);
+       console.log(this.selected_data)
+     }
+   }
+
+   filered_data:any=[]
+   getPlayerSearch(text:any){
+     console.log(text)
+     var filterData=this.player_list.filter((item) =>
+       item.name.toLowerCase().includes(text.toLowerCase())
+     )
+     this.filered_data=filterData
+     
+   }
+
+
+ data_bulk_update:any;
+ get_selected_data(playerList:any){
+      if (playerList.length!=0){
+        this.playerService.get_list_players(playerList).subscribe(
+          (response)=>{
+            this.data_bulk_update= response
+            this.bulk_edit=true
+            this.initializeForm(this.data_bulk_update);
+            
+          }
+        )}
+      }
+
+  bulk_edit:boolean=false
+  
+  cancel_bulk_update(){
+    this.bulk_edit=false
+    this.selected_data=[]
+    this.bulk_update_con=false
+    //this.all_checked!this.all_checked;
+    this.get_all_players()
+  }
+  edit_bulk(){
+    this.get_selected_data(this.selected_data)
+    
+  }
+  
+
+  initializeForm(dataSet: any[]) {
+    if (!dataSet) {
+      return; // Exit early if dataSet is undefined or null
+    }
+  
+    const playersArray = this.bulkEditForm.get('players') as FormArray;
+    playersArray.clear(); // Clear existing form array before adding new data
+  
+    dataSet.forEach(player => {
+      playersArray.push(this.createPlayerFormGroup(player));
+    });
+  }
+  createPlayerFormGroup(player: any): FormGroup {
+    return this.fb.group({
+      player_no:[player.player_no],
+      name: [player.name],
+      age: [player.age],
+      batting_rating: [player.batting_rating,[Validators.required, Validators.min(1), Validators.max(10)]],
+      bowling_rating: [player.bowling_rating,[Validators.required, Validators.min(1), Validators.max(10)]],
+      wicket_keeper_rating: [player.wicket_keeper_rating,[Validators.required, Validators.min(1), Validators.max(10)]]
+    });
+  }
+  get players(): FormArray {
+    return this.bulkEditForm.get('players') as FormArray;
+  }
+
+  update_bulk_data() {
+    console.log(this.bulkEditForm.value.players);
+    // Implement further logic to handle the updated data, such as sending it to the server
+    this.cancel_bulk_update(); // Reset the form after updating
+  }
+
+  onSubmit_edit(){
+    var data_to_post=this.bulkEditForm.value.players
+    console.log(data_to_post)
+    this.playerService.update_selected_players(data_to_post).subscribe(
+      (response)=>{
+        this.get_all_players()
+        this.cancel_bulk_update()
+        console.log(response)
+      }
+    )
+  }
+ // bulk_edit:boolean=false
+  bulk_update_con:boolean=false
+  bulk_update(){
+    this.bulk_update_con=true
+    console.log(this.selected_data)
+  }
+  onSubmit_bulk(){
+    var data=this.bulkForm.value
+    this.playerService.bulk_update(data,this.selected_data).subscribe(
+      (response)=>{
+        console.log(response)
+        this.get_all_players()
+        this.cancel_bulk_update()
+        this.bulkForm.reset()
+      }
+    )
+    
+  }
 }

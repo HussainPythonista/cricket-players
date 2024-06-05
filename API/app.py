@@ -55,10 +55,10 @@ def insert_one():
     data = request.get_json()
     player_no = data['player_no']
     name = data["name"]
-    bowling_rating = int(data["bowling_rating"])
-    batting_rating = int(data["batting_rating"])
+    bowling_rating = float(data["bowling_rating"])
+    batting_rating = float(data["batting_rating"])
     age = data["age"]
-    wicket_keeper_rating = int(data["wicket_keeper_rating"])
+    wicket_keeper_rating = float(data["wicket_keeper_rating"])
 
     if db.get_one_data(player_no) is None:
         db.insert_one(player_no=player_no, name=name, age=age, wicket_keeper_rating=wicket_keeper_rating,
@@ -105,6 +105,36 @@ def get_selected(list_data):
     numbers = list(set(numbers))
     return db.get_selected_data(numbers)
     
+@app.route('/update_player_selected', methods=['POST'])
+def update_player_selected():
+    data_list = request.get_json()
+    for data in data_list:
+        player_no = data['player_no']
+        name=data['name']
+        age = data["age"]
+        bowling_rating = float(data["bowling_rating"])
+        batting_rating = float(data["batting_rating"])
+        wicket_keeper_rating = float(data["wicket_keeper_rating"])
+
+        db.update_player_info(player_no=player_no, age=age,name=name, batting_rating=batting_rating, bowling_rating=bowling_rating, wicket_keeper_rating=wicket_keeper_rating)
+    return jsonify("Updated Succesfully")
+
+
+@app.route('/bulk_update/<bulk_list>', methods=['POST'])
+def bulk_update_selected(bulk_list):
+    numbers = re.findall(r'\d+', bulk_list)
+    numbers = [int(num) for num in numbers]
+    numbers = list(set(numbers))
+
+    print(bulk_list)
+    
+    data=request.get_json()
+    print(data)
+    bowling_rating = float(data["bowling_rating"])
+    batting_rating = float(data["batting_rating"])
+    wicket_keeper_rating = float(data["wicket_keeper_rating"])
+    db.bulk_update(player_no=numbers,batting_rating=batting_rating,bowling_rating=bowling_rating,wicket_keeper_rating=wicket_keeper_rating)
+    return jsonify("Bulk update Success")
 
 if __name__ == "__main__":
     app.run(debug=True)

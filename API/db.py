@@ -103,4 +103,14 @@ def get_selected_data(list_data):
         selected_data.append(single_data)
     return selected_data
      
+def bulk_update(player_no,batting_rating, bowling_rating, wicket_keeper_rating):
+    #filter_ =  player_no
+    update_info = {'$set': {
+        "batting_rating": batting_rating,
+        "bowling_rating": bowling_rating,
+        "wicket_keeper_rating": wicket_keeper_rating}}
+    result = collection_data.update_many({'player_no':{"$in":player_no}}, update_info)
+    
+    return "Success"
+    
 

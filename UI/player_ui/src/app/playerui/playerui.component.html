@@ -3,21 +3,101 @@
     <h1>No Data Present To Display</h1>
   </div>
 
-
-  <div *ngIf="bulk_edit==true">
-    <tr *ngFor="let single_data of data_bulk_update">
+  <div *ngIf="bulk_update_con==true" class="header-container">
+    <form [formGroup]="bulkForm" (ngSubmit)="onSubmit_bulk()">
+    <table>
       
-      {{single_data.player_no}}
-      {{single_data.name}}
-      {{single_data.age}}
-      <input type="number" name="" id="" [(ngModel)]="single_data.batting_rating">
-      <input type="number" name="" id="" [(ngModel)]="single_data.batting_rating">
-      <input type="number" name="" id="" [(ngModel)]="single_data.batting_rating">
+      <tbody>
+        <div>
+          <td><input type="number" formControlName="batting_rating" placeholder="Batting rating" required>
+            <div *ngIf="bulkForm.get('batting_rating')?.touched && bulkForm.get('batting_rating')?.invalid">
+              <small *ngIf="bulkForm.get('batting_rating')?.errors" ></small>
+              <small *ngIf="bulkForm.get('batting_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+              <small *ngIf="bulkForm.get('batting_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+            </div></td>
+          <td><input type="number" formControlName="bowling_rating" placeholder="Bowling rating" required>
+            <div *ngIf="bulkForm.get('bowling_rating')?.touched && bulkForm.get('bowling_rating')?.invalid">
+              <small *ngIf="bulkForm.get('bowling_rating')?.errors" ></small>
+              <small *ngIf="bulkForm.get('bowling_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+              <small *ngIf="bulkForm.get('bowling_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+            </div></td>
+          <td><input type="number" formControlName="wicket_keeper_rating" placeholder="Wicket rating" required>
+            <div *ngIf="bulkForm.get('wicket_keeper_rating')?.touched && bulkForm.get('wicket_keeper_rating')?.invalid">
+              <small *ngIf="bulkForm.get('wicket_keeper_rating')?.errors" ></small>
+              <small *ngIf="bulkForm.get('wicket_keeper_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+              <small *ngIf="bulkForm.get('wicket_keeper_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+            </div></td>
 
-    </tr>
-    <button (click)="cancel_bulk_update()">Cancel</button>
+          <div class="button-container">
+            <button class="btn center-button" type="submit">
+              <img src="assets/8666542_save_icon.png" alt="Save Icon" width="20" height="20" >
+            </button>
+            <button class="btn center-button" type="button">
+              <img src="assets/4781838_cancel_close_delete_exit_logout_icon.png" alt="Cancel Icon" width="20" height="20" (click)="cancel_bulk_update()">
+            </button>
+          </div>
+        </div>
+      </tbody>
+    
+    </table>
+
+  </form>
+
   </div>
+  <div *ngIf="" class="header-container">
+    <h1>Bulk Edit</h1> 
+    <form [formGroup]="bulkEditForm" (ngSubmit)="onSubmit_edit()">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Batting Rating</th>
+            <th>Bowling Rating</th>
+            <th>Wicket Keeper Rating</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="players">
+          <tr *ngFor="let player of players.controls; let i = index" [formGroupName]="i">
+            <td>{{player.value.player_no}}</td>
+            <td>{{player.value.name}}</td>
+            <td>{{player.value.age}}</td>
+            <td><input type="number" formControlName="batting_rating" required>
+              <div *ngIf="player.get('batting_rating')?.touched && player.get('batting_rating')?.invalid">
+                <small *ngIf="player.get('batting_rating')?.errors" ></small>
+                <small *ngIf="player.get('batting_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+                <small *ngIf="player.get('batting_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+              </div></td>
+            <td><input type="number" formControlName="bowling_rating" required>
+              <div *ngIf="player.get('bowling_rating')?.touched && player.get('bowling_rating')?.invalid">
+                <small *ngIf="player.get('bowling_rating')?.errors" ></small>
+                <small *ngIf="player.get('bowling_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+                <small *ngIf="player.get('bowling_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+              </div></td>
+            <td><input type="number" formControlName="wicket_keeper_rating" required>
+              <div *ngIf="player.get('wicket_keeper_rating')?.touched && player.get('wicket_keeper_rating')?.invalid">
+                <small *ngIf="player.get('wicket_keeper_rating')?.errors" ></small>
+                <small *ngIf="player.get('wicket_keeper_rating')?.errors?.['min']" [ngStyle]="{'color':'red'}">Minimum value is 1</small>
+                <small *ngIf="player.get('wicket_keeper_rating')?.errors?.['max']" [ngStyle]="{'color':'red'}">Maximum value is 10</small>
+              </div></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="button-container">
+      <button class="btn center-button" type="submit">
+        <img src="assets/8666542_save_icon.png" alt="Save Icon" width="20" height="20" >
+      </button>
+      <button class="btn center-button" type="button" (click)="cancel_bulk_update()">
+        <img src="assets/4781838_cancel_close_delete_exit_logout_icon.png" alt="Cancel Icon" width="20" height="20">
+      </button>
+    </div>
+    </form>
+  </div>
+ 
   <ng-template [ngIf]="!display_check">
+
+    
     <div class="header-container">
       <h1>Player Info</h1>
       <div class="button-container">
@@ -27,8 +107,11 @@
           <button title="Delete Selected" (click)="delete_selected_all(selected_data)" class="btn center-button">
               <img src="assets/trash-bin.png" alt="Delete Selected" width="20" height="20">
           </button>
-          <button class="btn center-button" (click)="edit_bulk()">
+          <!-- <button class="btn center-button" (click)="edit_bulk()">
             <img src="assets/8542056_edit_write_icon.png" alt="Edit Icon" width="20" height="20">
+          </button> -->
+          <button class="btn" [ngStyle]="{'color':'black','background':'green'}" (click)="bulk_update()">
+            Bulk Update
           </button>
       </div>
       <div class="search-container">
@@ -38,21 +121,21 @@
   
 
   </div>
-   
+  
     <div>
       
       <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form-class">
        
-        <table class="data-table">
+        <table class="data-table" *ngIf="bulk_edit==false">
           
           <thead>
             <tr>
               <th class="checkbox-cell column-header">
                 <input type="checkbox" (click)="checkAll()">
               </th>
-              <th class="column-header no">
-                No:
-                <button (click)="needToSort('wicket_keeper_rating')" title="Sort" class="sort-button">
+              <th class="column-header">
+                No
+                <button (click)="needToSort('player_no')" title="Sort" class="sort-button">
                   <img src="assets/reorder.png" alt="Sort Icon" width="20" height="20">
                 </button>
               </th>
@@ -152,7 +235,8 @@
                 
               
             </tr>
-
+            
+    
             <tr *ngFor="let player of (search ? filered_data :(sort ? sortedData : player_list)); let i = index" class="student-row">
               
               <ng-container *ngIf="edit_player_roll === player.player_no; else viewRow">

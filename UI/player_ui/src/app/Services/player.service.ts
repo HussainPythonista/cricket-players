@@ -42,4 +42,13 @@ export class PlayerService {
     get_list_players(player_no_list:any):Observable<any>{
       return this.http.get<any>(`${this.apiUrl}/edit_selected/[${player_no_list}]`)
     }
+
+    update_selected_players(data:any):Observable<any>{
+      return this.http.post<any>(`${this.apiUrl}/update_player_selected`,data)
+    }
+
+    bulk_update(update_data:any,player_no:any):Observable<any>{
+      console.log(update_data)
+      return this.http.post<any>(`${this.apiUrl}/bulk_update/[${player_no}]`,update_data)
+    }
 }
