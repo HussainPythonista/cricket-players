@@ -125,11 +125,8 @@ def bulk_update_selected(bulk_list):
     numbers = re.findall(r'\d+', bulk_list)
     numbers = [int(num) for num in numbers]
     numbers = list(set(numbers))
-
-    print(bulk_list)
     
     data=request.get_json()
-    print(data)
     bowling_rating = float(data["bowling_rating"])
     batting_rating = float(data["batting_rating"])
     wicket_keeper_rating = float(data["wicket_keeper_rating"])
