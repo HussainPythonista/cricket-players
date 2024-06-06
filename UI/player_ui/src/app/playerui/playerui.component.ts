@@ -71,6 +71,10 @@ export class PlayeruiComponent implements OnInit {
       this.player_list = response.sort((a: any, b: any) => b.player_no - a.player_no);
       this.applySort(); // Apply sorting after fetching data
       this.cdr.detectChanges();
+      if (this.player_list.length==0){
+        this.display_check=true
+      }
+      
       return this.player_list;
     });
   }
@@ -79,6 +83,9 @@ export class PlayeruiComponent implements OnInit {
   ngOnInit() {
     this.get_all_players()
     this.get_selected_data(this.selected_data)
+    console.log(this.player_list.length)
+   
+    
     
   }
   resetForm() {
@@ -159,7 +166,7 @@ export class PlayeruiComponent implements OnInit {
   selected_data: any[] = [];
   
   delete_all: boolean = false;
-  delete_selected_all(selected_data: any) {
+  delete_selected(selected_data: any) {
     if (this.all_checked) {
       this.playerService.delete_all_data().subscribe((response) => {
         this.display_check = true;
@@ -202,7 +209,7 @@ export class PlayeruiComponent implements OnInit {
     if (this.add_player_bool) this.add_player_check();
     this.playerService.single_player(id).subscribe((response) => {
       this.single_data = response;
-      // this.cdr.detectChanges();
+      
     });
   }
 
@@ -241,17 +248,20 @@ export class PlayeruiComponent implements OnInit {
   
   selected_players(player_no: any) {
     var present=this.selected_data.includes(player_no)
-     
-     if (present){
-       const index = this.selected_data.indexOf(player_no);
-       this.selected_data.splice(index,1)
-       console.log(this.selected_data)
-
-     }
-     else{
-       this.selected_data.push(player_no);
-       console.log(this.selected_data)
-     }
+    if (this.all_checked==false){
+      if (present){
+        const index = this.selected_data.indexOf(player_no);
+        this.selected_data.splice(index,1)
+        console.log(this.selected_data)
+ 
+      }
+      
+      else{
+        this.selected_data.push(player_no);
+        console.log(this.selected_data)
+      }
+    } 
+    
    }
 
    filered_data:any=[]
@@ -284,7 +294,7 @@ export class PlayeruiComponent implements OnInit {
     this.bulk_edit=false
     this.selected_data=[]
     this.bulk_update_con=false
-    //this.all_checked!this.all_checked;
+    this.all_checked=false
     this.get_all_players()
   }
   edit_bulk(){
@@ -321,8 +331,8 @@ export class PlayeruiComponent implements OnInit {
 
   update_bulk_data() {
     console.log(this.bulkEditForm.value.players);
-    // Implement further logic to handle the updated data, such as sending it to the server
-    this.cancel_bulk_update(); // Reset the form after updating
+   
+    this.cancel_bulk_update(); 
   }
 
   onSubmit_edit(){
@@ -340,7 +350,18 @@ export class PlayeruiComponent implements OnInit {
   bulk_update_con:boolean=false
   bulk_update(){
     this.bulk_update_con=true
-    console.log(this.selected_data)
+
+    //Update all the values in single selection
+    if (this.all_checked==true){
+      this.selected_data=[]
+      for (let i = 0; i < this.player_list.length; i++){
+        this.selected_data.push(this.player_list[i]['player_no'])
+      }
+      
+    }
+    //console.log(this.selected_data)
+
+    
   }
   onSubmit_bulk(){
     var data=this.bulkForm.value

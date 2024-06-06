@@ -1,6 +1,6 @@
 <div  class="content-wrapper">
- <div *ngIf="display_check">
-    <h1>No Data Present To Display</h1>
+ <div *ngIf="display_check==true">
+    <h1>No Data To Display</h1>
   </div>
 
   <div *ngIf="bulk_update_con==true" class="header-container">
@@ -95,7 +95,7 @@
     </form>
   </div>
  
-  <ng-template [ngIf]="!display_check">
+  <ng-template [ngIf]="display_check==false">
 
     
     <div class="header-container">
@@ -104,7 +104,7 @@
           <button title="Add Players" (click)="add_player_check()" class="btn center-button">
               <img src="assets/add-user.png" alt="Add Players" width="20" height="20">
           </button>
-          <button title="Delete Selected" (click)="delete_selected_all(selected_data)" class="btn center-button">
+          <button title="Delete Selected" (click)="delete_selected(selected_data)" class="btn center-button">
               <img src="assets/trash-bin.png" alt="Delete Selected" width="20" height="20">
           </button>
           <!-- <button class="btn center-button" (click)="edit_bulk()">
@@ -131,7 +131,7 @@
           <thead>
             <tr>
               <th class="checkbox-cell column-header">
-                <input type="checkbox" (click)="checkAll()">
+                <input type="checkbox" [checked]="all_checked" (click)="checkAll()">
               </th>
               <th class="column-header">
                 No
